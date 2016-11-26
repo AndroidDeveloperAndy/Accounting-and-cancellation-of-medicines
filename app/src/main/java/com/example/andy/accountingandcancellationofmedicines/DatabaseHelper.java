@@ -18,13 +18,14 @@ import java.sql.SQLException;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final int VERSION = 1;
     String DB_PATH = null;
-    private static String DB_NAME = "extenalDB";
+    private static String DB_NAME = "extenalDB.db";
     private SQLiteDatabase myDataBase;
     private final Context myContext;
 
     public DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, 10);
+        super(context, DB_NAME, null, VERSION);
         this.myContext = context;
         this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "databases/";
         Log.e("Path 1", DB_PATH);

@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Пилюли</string>
+    <string name="action_sign_in">Авторизация</string>
+    <string name="action_sign_in_short">Авторизация</string>
+    <string name="error_field_required">Это поле обязательно к заполнению</string>
+    <string name="error_invalid_login">Неверный логин</string>
+    <string name="error_invalid_password">Неверный пароль</string>
+    <string name="error_incorrect_password">Некорректный пароль</string>
+    <string name="prompt_login">Введите логин</string>
+    <string name="prompt_password">Введите пароль</string>
+    <string name="permission_rationale">Читать контакты для предоставления к электронной почте</string>
+</resources>

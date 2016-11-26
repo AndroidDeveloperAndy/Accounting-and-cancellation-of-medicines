@@ -207,14 +207,17 @@
         android:layout_below="@+id/relativeLayout4"
         android:layout_alignStart="@+id/price_one">
 
-        <Button
-            android:textStyle="bold|italic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add medicine"
-            android:id="@+id/add_medicine_pageAdd"
-            android:layout_alignParentEnd="true" />
     </RelativeLayout>
+
+    <Button
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add medicine"
+        android:id="@+id/add_medicine_pageAdd"
+        android:layout_below="@+id/relativeLayout4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp" />
 
 </RelativeLayout>
 </ScrollView>

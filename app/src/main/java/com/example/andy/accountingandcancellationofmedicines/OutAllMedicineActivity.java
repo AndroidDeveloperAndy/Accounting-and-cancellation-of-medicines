@@ -10,4 +10,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_out_all_medicine);
     }
+
+
 }
