@@ -43,8 +43,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "hello", "password"
     };
+    private static final String[] CLIENT_SING = new String[]{
+            "client", "password"
+    };
+    public static final int CODE_ADMIN_SUCCESFUL = 1;
+    public static final int CODE_CLIENT_SUCCESFUL = 2;
+    public static final int CODE_SING_UP_EXEPTION = 2;
     private UserLoginTask mAuthTask = null;
 
     private AutoCompleteTextView mLoginView;
@@ -78,8 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                Intent intent = new Intent(LoginActivity.this, StartPageActivity.class);
-                startActivity(intent);
+
             }
         });
         Button mLoginCheckInButton = (Button) findViewById(R.id.registration);
@@ -283,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
         private final String mLogin;
         private final String mPassword;
@@ -294,32 +299,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected Integer doInBackground(Void... params) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                return false;
+                return -CODE_SING_UP_EXEPTION;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mLogin)) {
-                    return pieces[1].equals(mPassword);
-                }
+            if(DUMMY_CREDENTIALS[0].equals(mLogin) &&
+                    DUMMY_CREDENTIALS[1].equals(mPassword)){
+                return CODE_ADMIN_SUCCESFUL;
             }
-            return true;
+            else if(CLIENT_SING[0].equals(mLogin) &&
+                    CLIENT_SING[1].equals(mPassword)){
+                return CODE_CLIENT_SUCCESFUL;
+            }
+            else
+            return 0;
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Integer success) {
             mAuthTask = null;
             showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+            switch (success) {
+                case CODE_ADMIN_SUCCESFUL:{
+                    Intent intent = new Intent(LoginActivity.this, StartPageActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case CODE_CLIENT_SUCCESFUL:{
+                    Intent intent = new Intent(LoginActivity.this, ClientInterfaceActivity.class);
+                    startActivity(intent);
+                    break;
+                } default:{
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                }
             }
         }
 
