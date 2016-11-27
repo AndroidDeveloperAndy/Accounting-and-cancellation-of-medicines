@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +37,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static final int CODE_ADMIN_SUCCESFUL = 1;
     public static final int CODE_CLIENT_SUCCESFUL = 2;
     public static final int CODE_SING_UP_EXEPTION = 2;
+    private static final String LOG = LoginActivity.class.getName();
     private UserLoginTask mAuthTask = null;
 
     private AutoCompleteTextView mLoginView;
@@ -63,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Singl.getInstance(getApplicationContext());
         mLoginView = (AutoCompleteTextView) findViewById(R.id.login);
         populateAutoComplete();
         iv = (ImageView) findViewById(R.id.imageView);
@@ -123,8 +131,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-    }
+        DatabaseHelper database = new DatabaseHelper(getApplicationContext());
+        SQLiteDatabase data = database.getWritableDatabase();
 
+    }
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
