@@ -42,13 +42,6 @@ public class CountryEntity {
         this.codePhone = codePhone;
     }
 
-    public String getNameCity() {
-        return nameCity;
-    }
-
-    public void setNameCity(String nameCity) {
-        this.nameCity = nameCity;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,7 +54,6 @@ public class CountryEntity {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (codeCountry != null ? !codeCountry.equals(that.codeCountry) : that.codeCountry != null) return false;
         if (codePhone != null ? !codePhone.equals(that.codePhone) : that.codePhone != null) return false;
-        if (nameCity != null ? !nameCity.equals(that.nameCity) : that.nameCity != null) return false;
 
         return true;
     }
@@ -72,7 +64,6 @@ public class CountryEntity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (codeCountry != null ? codeCountry.hashCode() : 0);
         result = 31 * result + (codePhone != null ? codePhone.hashCode() : 0);
-        result = 31 * result + (nameCity != null ? nameCity.hashCode() : 0);
         return result;
     }
 }

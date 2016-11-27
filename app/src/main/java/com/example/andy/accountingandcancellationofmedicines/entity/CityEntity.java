@@ -7,6 +7,8 @@ public class CityEntity {
     private Integer idCity;
     private String name;
     private Integer postCode;
+    private Integer idCountry;
+
 
     public Integer getIdCity() {
         return idCity;
@@ -32,6 +34,14 @@ public class CityEntity {
         this.postCode = postCode;
     }
 
+    public Integer getIdCountry() {
+        return idCountry;
+    }
+
+    public void setIdCountry(Integer idCountry) {
+        this.idCountry = idCountry;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,6 +52,7 @@ public class CityEntity {
         if (idCity != null ? !idCity.equals(that.idCity) : that.idCity != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (postCode != null ? !postCode.equals(that.postCode) : that.postCode != null) return false;
+        if (idCountry != null ? !idCountry.equals(that.idCountry) : that.idCountry != null) return false;
 
         return true;
     }
@@ -51,6 +62,7 @@ public class CityEntity {
         int result = idCity != null ? idCity.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (postCode != null ? postCode.hashCode() : 0);
+        result = 31 * result + (idCountry != null ? idCountry.hashCode() : 0);
         return result;
     }
 }
