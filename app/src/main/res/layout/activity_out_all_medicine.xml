@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold|italic"
-        android:text="Delete"
+        android:text="@string/delete"
         android:id="@+id/DeleteButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />

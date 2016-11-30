@@ -28,7 +28,7 @@
         <Button
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="Order"
+            android:text="@string/order"
             android:textStyle="bold|italic"
             android:id="@+id/OrderButton"
             android:layout_alignParentBottom="true"
@@ -46,7 +46,7 @@
         <EditText
             android:layout_height="62dp"
             android:id="@+id/find_client_medicine"
-            android:hint="Find medicine"
+            android:hint="@string/find_medicine"
             android:layout_alignParentStart="true"
             android:textStyle="bold|italic"
             android:layout_toStartOf="@+id/client_city"
@@ -79,7 +79,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/search"
         android:textStyle="bold|italic"
         android:id="@+id/SearchButton"
         android:layout_alignBottom="@+id/linearLayout"

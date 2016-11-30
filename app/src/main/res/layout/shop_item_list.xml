@@ -33,7 +33,7 @@
 
             android:layout_marginTop="5dp"
 
-            android:text="name shop"
+            android:text="@string/name_shop"
 
             android:gravity="center"
 
@@ -53,6 +53,6 @@
 
         android:layout_marginRight="10dp"
 
-        android:text="adress">
+        android:text="@string/adress">
     </TextView>
 </LinearLayout>

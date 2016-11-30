@@ -22,8 +22,25 @@
     <string name="shelf_life">Shelf life</string>
     <string name="country">Country</string>
     <string name="city">City</string>
-
-
-
-
+    <string name="code_country">Code country</string>
+    <string name="code_phone">Code phone</string>
+    <string name="adding">Adding medicines to shop</string>
+    <string name="adress">Adress</string>
+    <string name="price_one">Price one</string>
+    <string name="departure_date">Departure date</string>
+    <string name="form_registration">Form registration</string>
+    <string name="check_in">Check in</string>
+    <string name="postal_adress">Postal address</string>
+    <string name="phone">Phone</string>
+    <string name="email">E-mail</string>
+    <string name="your_name">Your name</string>
+    <string name="order">Order</string>
+    <string name="find_medicine">Find medicine</string>
+    <string name="search">Search</string>
+    <string name="restore">Restore password</string>
+    <string name="delete">Delete</string>
+    <string name="out_all">Out all medicine</string>
+    <string name="enter_name_tablets">Enter the name of the tablets</string>
+    <string name="name_shop">Name shop</string>
+    <string name="enter_name_tablets">Enter the name of the tablets</string>
 </resources>

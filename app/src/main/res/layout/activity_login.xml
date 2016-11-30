@@ -97,7 +97,7 @@
                 <Button
                     android:layout_width="172dp"
                     android:layout_height="wrap_content"
-                    android:text="Check in"
+                    android:text="@string/check_in"
                     android:textStyle="bold|italic"
                     android:textSize="15sp"
                     android:id="@+id/registration"
@@ -107,7 +107,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Restore password"
+                    android:text="@string/restore"
                     android:textStyle="bold|italic"
                     android:textSize="15sp"
                     android:id="@+id/restore_password"
