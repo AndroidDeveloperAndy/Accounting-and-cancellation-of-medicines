@@ -6,15 +6,12 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.R;
-import com.example.andy.accountingandcancellationofmedicines.database.MedicineTable;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
@@ -28,7 +25,6 @@ public class MedicineAdapter extends BaseAdapter {
 
     List<MedicineEntity> entityMedicine;
     LayoutInflater lInflater;
-    Toast toast;
 
     private Activity activity;
 
@@ -53,14 +49,10 @@ public class MedicineAdapter extends BaseAdapter {
         public void onCheckedChanged(CompoundButton buttonView,
                                      boolean isChecked) {
                 if(isChecked){
-                    toast= Toast.makeText(activity,
-                            MedicineTable.ColumnMedicineTable.NameMedicine +"помещено в корзину.", Toast.LENGTH_LONG);
-                    toast.show();
+
             }
             else{
-                    toast= Toast.makeText(activity,
-                            MedicineTable.ColumnMedicineTable.NameMedicine +"убран из корзины.", Toast.LENGTH_LONG);
-                    toast.show();
+
                 }
         }
     };
@@ -96,7 +88,7 @@ public class MedicineAdapter extends BaseAdapter {
             CheckBox cbMedicine = (CheckBox) view.findViewById(R.id.cbMedicine);
             cbMedicine.setOnCheckedChangeListener(myCheckChangeList);
             cbMedicine.setTag(position);
-            cbMedicine.setChecked(true);
+            cbMedicine.setChecked(false);
 
             TextView nameMedicine = (TextView) view.findViewById(R.id.txNameMedicine);
             nameMedicine.setText(data.getNameMedicine());
