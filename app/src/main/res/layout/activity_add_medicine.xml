@@ -17,7 +17,7 @@
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add medicine"
+        android:text="@string/add_medicine"
         android:id="@+id/Title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextNameMedicine"
-        android:hint="Name medicine"
+        android:hint="@string/name_medicine"
         android:layout_below="@+id/Title"
         android:layout_alignParentStart="true" />
 
@@ -35,11 +35,11 @@
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerDistrict"
+        android:id="@+id/spinnerCityAdd"
         android:spinnerMode="dropdown"
         android:layout_alignTop="@+id/editTextNameMedicine"
-        android:layout_alignEnd="@+id/code_country"
-        android:layout_marginEnd="41dp" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView3" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -48,7 +48,7 @@
         android:id="@+id/editTextNote"
         android:layout_below="@+id/editTextNameMedicine"
         android:layout_alignParentStart="true"
-        android:hint="Note" />
+        android:hint="@string/note" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -58,7 +58,7 @@
         android:ems="10"
         android:id="@+id/editTextAD"
         android:layout_below="@+id/editTextNote"
-        android:hint="Arrival date"
+        android:hint="@string/arrival_date"
         android:layout_alignEnd="@+id/Amount" />
 
     <EditText
@@ -69,19 +69,8 @@
         android:ems="10"
         android:id="@+id/Amount"
         android:layout_below="@+id/editTextAD"
-        android:hint="Amount"
+        android:hint="@string/amount"
         android:layout_alignEnd="@+id/shelfLife" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/DateOfManufacture"
-        android:layout_below="@+id/Amount"
-        android:layout_alignParentStart="true"
-        android:hint="Date of Manufacture" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -91,57 +80,8 @@
         android:ems="10"
         android:id="@+id/shelfLife"
         android:layout_below="@+id/DateOfManufacture"
-        android:hint="Shelf life"
+        android:hint="@string/shelf_life"
         android:layout_toStartOf="@+id/Title" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/country"
-        android:hint="Country"
-        android:layout_below="@+id/editTextNameMedicine"
-        android:layout_toEndOf="@+id/MeasurAmount" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/city"
-        android:hint="City"
-        android:layout_below="@+id/country"
-        android:layout_alignStart="@+id/country" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adress"
-        android:hint="Adress"
-        android:layout_below="@+id/city"
-        android:layout_toEndOf="@+id/Title" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/departure_date"
-        android:hint="Departure date"
-        android:layout_below="@+id/shelfLife"
-        android:layout_alignEnd="@+id/Title" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/price_one"
-        android:layout_below="@+id/departure_date"
-        android:layout_alignEnd="@+id/departure_date"
-        android:hint="Price one" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -184,40 +124,85 @@
         android:layout_below="@+id/price_one"
         android:layout_centerHorizontal="true" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/relativeLayout4">
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listShops"
-            android:choiceMode="multipleChoice"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            tools:listitem="@android:layout/simple_list_item_checked" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout4"
-        android:layout_alignStart="@+id/price_one">
-
-    </RelativeLayout>
-
-    <Button
+    <EditText
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add medicine"
-        android:id="@+id/add_medicine_pageAdd"
-        android:layout_below="@+id/relativeLayout4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="35dp" />
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/departure_date"
+        android:hint="Departure date"
+        android:layout_below="@+id/DateOfManufacture"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/price_one"
+        android:hint="Price one"
+        android:layout_below="@+id/shelfLife"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:id="@+id/listShops"
+            android:choiceMode="multipleChoice"
+            tools:listitem="@android:layout/simple_list_item_checked"
+            style="@style/Widget.AppCompat.Light.ListView.DropDown"
+            android:headerDividersEnabled="false"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:textStyle="bold|italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add medicine"
+            android:id="@+id/add_medicine_pageAdd"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/adress" />
+
+    </LinearLayout>
+
+    <EditText
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adress"
+        android:hint="Adress"
+        android:layout_marginStart="12dp"
+        android:layout_above="@+id/editTextAD"
+        android:layout_toEndOf="@+id/Title" />
+
+    <EditText
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/DateOfManufacture"
+        android:hint="@string/date_manufacture"
+        android:layout_below="@+id/Amount"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SpinnerCountryAdd"
+        android:layout_below="@+id/Title"
+        android:layout_alignStart="@+id/Title"
+        android:layout_toStartOf="@+id/spinnerCityAdd" />
 
 </RelativeLayout>
 </ScrollView>

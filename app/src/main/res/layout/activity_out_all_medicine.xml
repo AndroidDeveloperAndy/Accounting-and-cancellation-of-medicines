@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="All medicine"
+        android:text="@string/all_medicine"
         android:textStyle="bold|italic"
         android:id="@+id/TitleAllMedicine"
         android:layout_alignParentTop="true"
@@ -31,7 +31,7 @@
         android:choiceMode="multipleChoice"
 
         android:layout_alignParentEnd="true"
-        />
+        style="@android:style/Widget.DeviceDefault.Light.ListView" />
 
     <Button
         android:layout_width="wrap_content"
