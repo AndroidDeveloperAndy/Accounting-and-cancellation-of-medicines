@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             "admin", "admin"
     };
     private static final String[] CLIENT_SING = new String[]{
-            "user", "user"
+            "user", "users"
     };
     public static final int CODE_ADMIN_SUCCESFUL = 1;
     public static final int CODE_CLIENT_SUCCESFUL = 2;
@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private ImageView iv ;
+    private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Restore password!")
+                builder.setTitle("Restore password.")
                         .setMessage("New password sent to your e-mail.")
                         .setIcon(R.drawable.atancher)
                         .setPositiveButton("I agree",
