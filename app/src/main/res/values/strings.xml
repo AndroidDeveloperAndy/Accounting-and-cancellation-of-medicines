@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AcOm</string>
+    <string name="app_name">Medicine</string>
 
     <!-- Strings related to login -->
     <string name="prompt_login">Login</string>
