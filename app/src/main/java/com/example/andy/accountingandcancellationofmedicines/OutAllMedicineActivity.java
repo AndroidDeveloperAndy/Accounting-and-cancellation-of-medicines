@@ -31,9 +31,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
 
             long date = new Date().getTime();
 
-            for(int i = 0; i < 10; i++)
-                medicineEntityArrayList.add(new MedicineEntity(i, "name " + i, i, "note - " + i, i*10, new Date(date*i*60).toString(), new Date(date*i*60*60*60).toString(), "shelf life!!!"));
-
             deleteMedicine = (Button) findViewById(R.id.DeleteButton);
             View.OnClickListener deleteMedicine = new View.OnClickListener() {
                 @Override
