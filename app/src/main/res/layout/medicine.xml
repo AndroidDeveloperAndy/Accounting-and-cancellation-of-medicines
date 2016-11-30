@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <CheckBox
-        android:id="@+id/cbBox"
+        android:id="@+id/cbMedicine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     </CheckBox>
@@ -17,7 +17,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/tvDescr"
+            android:id="@+id/txNameMedicine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -25,7 +25,7 @@
             android:textSize="20sp">
         </TextView>
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/txAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -34,7 +34,7 @@
         </TextView>
     </LinearLayout>
     <TextView
-        android:id="@+id/tvShelfLife"
+        android:id="@+id/txShelfLife"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
