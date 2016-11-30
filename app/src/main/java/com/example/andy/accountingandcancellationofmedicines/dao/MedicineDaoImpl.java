@@ -23,7 +23,7 @@ public class MedicineDaoImpl implements MedicineDao {
         db = Singl.getInstance();
     }
     @Override
-    public List<MedicineEntity> queryAllMedicine() throws Exception {
+    public ArrayList<MedicineEntity> queryAllMedicine() throws Exception {
         Cursor c = db.query(MedicineTable.NameMedicineTable, null, null, null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
 
