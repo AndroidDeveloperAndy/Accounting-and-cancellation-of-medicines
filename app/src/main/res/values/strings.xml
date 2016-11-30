@@ -11,6 +11,19 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
+    <string name="all_medicine">All medicine</string>
+    <string name="add_medicine">Add medicine</string>
+    <string name="name_medicine">Name medicine</string>
+    <string name="note">Note</string>
+    <string name="arrival_date">Arrival date</string>
+    <string name="amount">Amount</string>
+    <string name="date_manufacture">Date of Manufacture</string>
+    <string name="shelf_life">Shelf life</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+
+
+
+
 </resources>

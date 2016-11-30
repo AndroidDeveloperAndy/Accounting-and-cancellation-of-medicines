@@ -10,4 +10,8 @@
     <string name="prompt_login">Введите логин</string>
     <string name="prompt_password">Введите пароль</string>
     <string name="permission_rationale">Читать контакты для предоставления к электронной почте</string>
+    <string name="all_medicine">Все медикаменты</string>
+    <string name="LangTitle">Язык</string>
+    <string name="LangDialogTitle">Выберите язык:</string>
+    <string name="LangSummary">Язык приложения.\nНеобходимо перезапустить приложение для принятия изменений.</string>
 </resources>
