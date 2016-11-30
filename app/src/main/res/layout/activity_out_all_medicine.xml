@@ -21,12 +21,17 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:id="@+id/listAllMedicine"
+
         android:textStyle="bold|italic"
+
         android:layout_below="@+id/TitleAllMedicine"
+
         android:choiceMode="multipleChoice"
+
         android:layout_alignParentEnd="true"
-        tools:listitem="@android:layout/simple_list_item_checked" />
+        />
 
     <Button
         android:layout_width="wrap_content"
