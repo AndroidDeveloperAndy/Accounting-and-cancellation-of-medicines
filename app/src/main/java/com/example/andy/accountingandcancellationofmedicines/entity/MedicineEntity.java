@@ -13,6 +13,20 @@ public class MedicineEntity {
     private String dateOfManufacture;
     private String shelfLife;
 
+    public MedicineEntity() {
+    }
+
+    public MedicineEntity(Integer id, String nameMedicine, Integer lotNumber, String note, Integer amount, String arrivalDate, String dateOfManufacture, String shelfLife) {
+        this.id = id;
+        this.nameMedicine = nameMedicine;
+        this.lotNumber = lotNumber;
+        this.note = note;
+        this.amount = amount;
+        this.arrivalDate = arrivalDate;
+        this.dateOfManufacture = dateOfManufacture;
+        this.shelfLife = shelfLife;
+    }
+
     public Integer getId() {
         return id;
     }
