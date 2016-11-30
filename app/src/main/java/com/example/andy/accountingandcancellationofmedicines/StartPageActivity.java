@@ -11,11 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.CityDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.dao.CountryDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.database.CityTable;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 
@@ -41,7 +39,6 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_start_page);
 
         district = (Spinner) findViewById(R.id.spinnerDistrict);
-        //district.setPrompt("Title");
         district.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                                @Override
                                                public void onItemSelected(AdapterView<?> parent, View view,
@@ -66,7 +63,6 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             country = (Spinner) findViewById(R.id.spinnerCountry);
             country.setAdapter(adapterCountry);
-            //district.setPrompt("Title");
             country.setSelection(0);
             country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
