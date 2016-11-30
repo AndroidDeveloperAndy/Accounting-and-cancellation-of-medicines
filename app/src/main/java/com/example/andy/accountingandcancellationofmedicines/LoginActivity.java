@@ -27,6 +27,8 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -132,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
 
         DatabaseHelper database = new DatabaseHelper(getApplicationContext());
         SQLiteDatabase data = database.getWritableDatabase();
@@ -356,6 +359,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem mi = menu.add(0, 1, 0, "Settings");
+        mi.setIntent(new Intent(this, Preferences.class));
+        return super.onCreateOptionsMenu(menu);
     }
 }
 

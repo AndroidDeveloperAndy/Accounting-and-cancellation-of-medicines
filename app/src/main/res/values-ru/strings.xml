@@ -39,4 +39,12 @@
     <string name="search">Поиск</string>
     <string name="your_name">Ваше имя</string>
     <string name="shelf_life">Срок годности</string>
+    <string name="LangTitle">Язык</string>
+    <string name="LangDialogTitle">Выберите язык:</string>
+    <string name="LangSummary">Язык приложения.\nНеобходимо перезапустить приложение для принятия изменений.</string>
+    <string-array name="entries_lang">
+        <item>Язык аппарата</item>
+        <item>Английский</item>
+        <item>Русский</item>
+    </string-array>
 </resources>

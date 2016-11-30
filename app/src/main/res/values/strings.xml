@@ -42,4 +42,12 @@
     <string name="out_all">Out all medicine</string>
     <string name="enter_name_tablets">Enter the name of the tablets</string>
     <string name="name_shop">Name shop</string>
+    <string name="LangDialogTitle">Choose language:</string>
+    <string name="LangTitle">Language</string>
+    <string name="LangSummary">Language application</string>
+    <string-array name="entryvalues_lang">
+        <item>default</item>
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
 </resources>
