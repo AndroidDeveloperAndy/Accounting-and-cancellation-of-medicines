@@ -3,7 +3,7 @@ package com.example.andy.accountingandcancellationofmedicines.dao;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Andy on 28.11.16.
@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface MedicineDao extends Serializable {
 
-    public List<MedicineEntity> queryAllMedicine() throws Exception;
+    public ArrayList<MedicineEntity> queryAllMedicine() throws Exception;
 }

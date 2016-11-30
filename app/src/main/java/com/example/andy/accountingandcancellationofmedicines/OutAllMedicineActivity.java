@@ -1,22 +1,23 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.andy.accountingandcancellationofmedicines.adapter.AdapterListView;
+import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
+
+import java.util.ArrayList;
+
 
 public class OutAllMedicineActivity extends AppCompatActivity {
-    final String LOG_TAG = "myLogs";
 
     ListView lvMain;
     Button deleteMedicine;
-
+    ArrayList<MedicineEntity> medicineEntityArrayList = new ArrayList<MedicineEntity>();
+    AdapterListView adapterListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,11 @@ public class OutAllMedicineActivity extends AppCompatActivity {
                     }
                 };
 
-        lvMain = (ListView) findViewById(R.id.listAllMedicine);
-
+            adapterListView = new AdapterListView(this,medicineEntityArrayList);
+            lvMain = (ListView) findViewById(R.id.listAllMedicine);
+            lvMain.setAdapter(adapterListView);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 }
