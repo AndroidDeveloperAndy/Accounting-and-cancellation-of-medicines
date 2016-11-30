@@ -49,10 +49,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static final int REQUEST_READ_CONTACTS = 0;
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "hello", "password"
+            "admin", "admin"
     };
     private static final String[] CLIENT_SING = new String[]{
-            "client", "password"
+            "user", "user"
     };
     public static final int CODE_ADMIN_SUCCESFUL = 1;
     public static final int CODE_CLIENT_SUCCESFUL = 2;
