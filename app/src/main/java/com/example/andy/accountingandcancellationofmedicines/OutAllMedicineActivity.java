@@ -1,5 +1,6 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,8 @@ public class OutAllMedicineActivity extends AppCompatActivity {
             long date = new Date().getTime();
 
             deleteMedicine = (Button) findViewById(R.id.DeleteButton);
+            deleteMedicine.setBackgroundColor(Color.rgb(98,99,155));
+
             View.OnClickListener deleteMedicine = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

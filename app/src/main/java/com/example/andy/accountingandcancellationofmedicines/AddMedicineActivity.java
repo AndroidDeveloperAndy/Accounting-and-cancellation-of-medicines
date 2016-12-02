@@ -1,10 +1,12 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -30,6 +32,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     List<CountryEntity> ListCountry;
     List<CityEntity> ListCity;
     Spinner measure;
+    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +106,10 @@ public class AddMedicineActivity extends AppCompatActivity {
             adapterListView = new ShopAdapter(this, shopEntityArrayList);
             lvMain = (ListView) findViewById(R.id.listShops);
             lvMain.setAdapter(adapterListView);
+
+            add = (Button)findViewById(R.id.add_medicine_pageAdd);
+            add.setBackgroundColor(Color.rgb(98,99,155));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

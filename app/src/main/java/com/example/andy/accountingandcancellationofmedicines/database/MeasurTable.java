@@ -6,14 +6,14 @@ package com.example.andy.accountingandcancellationofmedicines.database;
 
 public class MeasurTable {
 
-    private static final String NameMeasurTable= "measur";
+    public static final String NameMeasurTable= "measur";
 
     public static final class ColumnMeasurTable{
-        private static final String IdMedicine= "IdMedicine";
-        private static final String kilo= "kilo";
-        private static final String pieces= "pieces";
-        private static final String gram= "gram";
-        private static final String liters= "liters";
-        private static final String mliters= "mliters";
+        public static final String IdMedicine= "IdMedicine";
+        public static final String kilo= "kilo";
+        public static final String pieces= "pieces";
+        public static final String gram= "gram";
+        public static final String liters= "liters";
+        public static final String mliters= "mliters";
     }
 }

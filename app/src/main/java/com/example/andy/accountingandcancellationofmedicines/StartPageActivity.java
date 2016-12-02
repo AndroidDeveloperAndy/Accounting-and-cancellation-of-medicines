@@ -1,6 +1,7 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -101,10 +102,14 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
 
         listMedicine = (ListView) findViewById(R.id.listViewMedicine);
 
-        btAdd = (Button) findViewById(R.id.buttonAdd);
-        btOut = (Button) findViewById(R.id.buttonOut);
+            btAdd = (Button) findViewById(R.id.buttonAdd);
+            btAdd.setBackgroundColor(Color.rgb(98,99,155));
 
-        btAdd.setOnClickListener(this);
+            btOut = (Button) findViewById(R.id.buttonOut);
+            btOut.setBackgroundColor(Color.rgb(98,99,155));
+
+
+            btAdd.setOnClickListener(this);
         btOut.setOnClickListener(this);
         } catch (Exception e) {
             e.printStackTrace();

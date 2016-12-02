@@ -1,5 +1,6 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +27,7 @@ public class ClientInterfaceActivity extends AppCompatActivity {
     Spinner districtClient,countryClient;
     List<CountryEntity> entityListCountryClient;
     List<CityEntity> entityListCityClient;
-    Button order;
+    Button order,search;
 
 
     @Override
@@ -101,6 +102,9 @@ public class ClientInterfaceActivity extends AppCompatActivity {
 
         }
         order = (Button)findViewById(R.id.OrderButton);
+        order.setBackgroundColor(Color.rgb(98,99,155));
+        search = (Button)findViewById(R.id.SearchButton);
+        search.setBackgroundColor(Color.rgb(98,99,155));
 
     }
 
