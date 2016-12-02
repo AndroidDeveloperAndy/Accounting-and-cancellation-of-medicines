@@ -197,22 +197,22 @@
         android:layout_alignParentStart="true" />
 
     <Spinner
+        android:layout_height="wrap_content"
+        android:id="@+id/SpinnerCountryAdd"
+        android:background="@android:drawable/spinner_dropdown_background"
+        android:layout_alignBottom="@+id/editTextNameMedicine"
+        android:layout_toEndOf="@+id/editTextNameMedicine"
+        android:layout_width="80dp" />
+
+    <Spinner
         android:textStyle="bold|italic"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerCityAdd"
         android:spinnerMode="dropdown"
         android:background="@android:drawable/spinner_dropdown_background"
-        android:layout_above="@+id/adress"
-        android:layout_toEndOf="@+id/textView3"
-        android:layout_width="120dp" />
-
-    <Spinner
-        android:layout_height="wrap_content"
-        android:id="@+id/SpinnerCountryAdd"
-        android:background="@android:drawable/spinner_dropdown_background"
         android:layout_width="100dp"
-        android:layout_alignBottom="@+id/editTextNameMedicine"
-        android:layout_toEndOf="@+id/editTextNameMedicine" />
+        android:layout_above="@+id/adress"
+        android:layout_toEndOf="@+id/Title" />
 
 </RelativeLayout>
 </ScrollView>

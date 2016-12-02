@@ -42,9 +42,4 @@
     <string name="LangTitle">Язык</string>
     <string name="LangDialogTitle">Выберите язык:</string>
     <string name="LangSummary">Язык приложения.\nНеобходимо перезапустить приложение для принятия изменений.</string>
-    <string-array name="entries_lang">
-        <item>Язык аппарата</item>
-        <item>Английский</item>
-        <item>Русский</item>
-    </string-array>
 </resources>

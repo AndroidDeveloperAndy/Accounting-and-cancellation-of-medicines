@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="First Category">
     <ListPreference
         android:key="lang"
         android:title="@string/LangTitle"
@@ -7,4 +9,5 @@
         android:entries="@array/entries_lang"
         android:entryValues="@array/entryvalues_lang"
         android:dialogTitle="@string/LangDialogTitle" />
+    </PreferenceCategory>
 </PreferenceScreen>

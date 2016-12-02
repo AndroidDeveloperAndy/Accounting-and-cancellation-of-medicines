@@ -47,7 +47,12 @@
     <string name="LangSummary">Language application</string>
     <string-array name="entryvalues_lang">
         <item>default</item>
-        <item>en</item>
         <item>ru</item>
+        <item>en</item>
+    </string-array>
+    <string-array name="entries_lang">
+        <item>Язык аппарата</item>
+        <item>Русский</item>
+        <item>Английский</item>
     </string-array>
 </resources>
