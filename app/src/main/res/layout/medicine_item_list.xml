@@ -40,7 +40,11 @@
 
             android:layout_weight="1"
 
-            android:textSize="20sp">
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="normal|italic"
+            android:textAlignment="center"
+            android:fontFamily="casual">
         </TextView>
         <TextView
             android:id="@+id/txAmount"
@@ -54,7 +58,9 @@
 
             android:layout_marginRight="10dp"
 
-            android:text="@string/amount">
+            android:text="@string/amount"
+            android:fontFamily="cursive"
+            android:textColor="@android:color/holo_red_dark">
         </TextView>
     </LinearLayout>
     <TextView
@@ -67,6 +73,10 @@
 
         android:layout_marginRight="10dp"
 
-        android:text="@string/shelf_life">
+        android:text="@string/shelf_life"
+        android:fontFamily="serif"
+        android:textColor="@android:color/holo_green_dark"
+        android:textAlignment="center"
+        android:typeface="monospace">
     </TextView>
 </LinearLayout>

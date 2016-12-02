@@ -34,14 +34,17 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorPrimary"
+                android:textAlignment="center"
+                style="@style/Widget.Design.TextInputLayout">
 
                 <AutoCompleteTextView
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_login"
-                    android:textStyle="bold|italic"
+                    android:textStyle="normal|bold|italic"
                     android:inputType="text|textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@color/colorPrimary"
@@ -57,23 +60,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="false"
-                android:textColorHint="@color/black">
+                android:textColorHint="@color/colorPrimary"
+                android:textAlignment="center"
+                style="@style/Widget.Design.TextInputLayout">
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
-                    android:textStyle="bold|italic"
+                    android:textStyle="normal|bold|italic"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
+                    android:textAlignment="center"
                     android:maxLines="1"
                     android:textColor="@color/colorPrimary"
                     android:singleLine="true"
                     style="@android:style/Widget.DeviceDefault.AutoCompleteTextView"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:fontFamily="casual" />
 
             </android.support.design.widget.TextInputLayout>
 
