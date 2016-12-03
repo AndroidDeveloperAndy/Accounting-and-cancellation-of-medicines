@@ -1,8 +1,9 @@
-package com.example.andy.accountingandcancellationofmedicines.dao;
+package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.andy.accountingandcancellationofmedicines.dao.ShopDao;
 import com.example.andy.accountingandcancellationofmedicines.database.ShopTable;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.ShopEntity;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Created by Andy on 28.11.16.
  */
 
-public class ShopDaoImpl implements ShopDao{
+public class ShopDaoImpl implements ShopDao {
 
     private final SQLiteDatabase db;
     private static final String LOG_TAG = ShopDaoImpl.class.getName();

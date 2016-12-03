@@ -1,14 +1,14 @@
-package com.example.andy.accountingandcancellationofmedicines.dao;
+package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.andy.accountingandcancellationofmedicines.dao.MedicineDao;
 import com.example.andy.accountingandcancellationofmedicines.database.MedicineTable;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Andy on 28.11.16.

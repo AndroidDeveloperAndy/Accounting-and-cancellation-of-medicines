@@ -1,12 +1,9 @@
-package com.example.andy.accountingandcancellationofmedicines.dao;
+package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
-import android.app.ListActivity;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.example.andy.accountingandcancellationofmedicines.DatabaseHelper;
+import com.example.andy.accountingandcancellationofmedicines.dao.CityDao;
 import com.example.andy.accountingandcancellationofmedicines.database.CityTable;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
@@ -18,7 +15,7 @@ import java.util.List;
  * Created by Andy on 27.11.16.
  */
 
-public class CityDaoImpl implements CityDao{
+public class CityDaoImpl implements CityDao {
 
     private final SQLiteDatabase db;
     private static final String LOG_TAG = CityDaoImpl.class.getName();

@@ -1,9 +1,9 @@
-package com.example.andy.accountingandcancellationofmedicines.dao;
+package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.andy.accountingandcancellationofmedicines.dao.CountryDao;
 import com.example.andy.accountingandcancellationofmedicines.database.CountryTable;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Andy on 27.11.16.
  */
 
-public class CountryDaoImpl implements CountryDao{
+public class CountryDaoImpl implements CountryDao {
 
     private final SQLiteDatabase db;
     private static final String LOG_TAG = CityDaoImpl.class.getName();

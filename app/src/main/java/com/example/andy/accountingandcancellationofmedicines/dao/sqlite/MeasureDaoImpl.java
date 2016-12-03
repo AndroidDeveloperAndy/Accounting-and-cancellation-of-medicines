@@ -1,8 +1,9 @@
-package com.example.andy.accountingandcancellationofmedicines.dao;
+package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.andy.accountingandcancellationofmedicines.dao.MeasureDao;
 import com.example.andy.accountingandcancellationofmedicines.database.MeasurTable;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MeasurEntity;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by Andy on 28.11.16.
  */
 
-public class MeasureDaoImpl implements MeasureDao{
+public class MeasureDaoImpl implements MeasureDao {
 
     private final SQLiteDatabase db;
 
