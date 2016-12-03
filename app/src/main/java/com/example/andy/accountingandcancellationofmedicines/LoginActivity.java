@@ -40,7 +40,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.andy.accountingandcancellationofmedicines.dao.UsersDao;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.UsersDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,12 +54,6 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private static final int REQUEST_READ_CONTACTS = 0;
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "admin", "admin"
-    };
-    private static final String[] CLIENT_SING = new String[]{
-            "user", "users"
-    };
     public static final int CODE_ADMIN_SUCCESFUL = 1;
     public static final int CODE_CLIENT_SUCCESFUL = 2;
     public static final int CODE_SING_UP_EXEPTION = 2;
@@ -224,7 +221,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -307,30 +304,43 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mLogin;
         private final String mPassword;
+        UsersDaoImpl mUserDao;
 
         UserLoginTask(String login, String password) {
             mLogin = login;
             mPassword = password;
+            mUserDao = new UsersDaoImpl(Singl.getInstance(getApplicationContext()).getInstance());
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
+
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return -CODE_SING_UP_EXEPTION;
             }
 
-            if(DUMMY_CREDENTIALS[0].equals(mLogin) &&
-                    DUMMY_CREDENTIALS[1].equals(mPassword)){
-                return CODE_ADMIN_SUCCESFUL;
+            int resultCode = 0;
+            UsersEntity entity = mUserDao.read(mLogin);
+            boolean result = entity != null &&
+                    entity.getLogin().equals(mLogin) &&
+                    entity.getPassword().equals(mPassword);
+            if(result){
+            switch (entity.getTypeUser())
+            {
+                case "Sotrud": {
+                    resultCode = CODE_ADMIN_SUCCESFUL;
+                }
+                break;
+                case "Client": {
+                    resultCode = CODE_CLIENT_SUCCESFUL;
+                }
+                break;
             }
-            else if(CLIENT_SING[0].equals(mLogin) &&
-                    CLIENT_SING[1].equals(mPassword)){
-                return CODE_CLIENT_SUCCESFUL;
             }
-            else
-            return 0;
+
+            return resultCode;
         }
 
         @Override
@@ -360,10 +370,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem mi = menu.add(0, 1, 0, "Settings");
-        mi.setIntent(new Intent(this, Preferences.class));
+        getMenuInflater().inflate(R.menu.set, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_settings){
+            startActivity(new Intent(this, Preferences.class));
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 
