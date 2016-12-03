@@ -42,4 +42,8 @@
     <string name="LangTitle">Язык</string>
     <string name="LangDialogTitle">Выберите язык:</string>
     <string name="LangSummary">Язык приложения.\nНеобходимо перезапустить приложение для принятия изменений.</string>
+    <string name="Setting">Настройки</string>
+    <string name="Restart">Перезапуск</string>
+    <string name="enter_name_tablets">Имя таблетки</string>
+
 </resources>

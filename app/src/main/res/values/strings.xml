@@ -45,6 +45,9 @@
     <string name="LangDialogTitle">Choose language:</string>
     <string name="LangTitle">Language</string>
     <string name="LangSummary">Language application</string>
+    <string name="Setting">Setting</string>
+    <string name="Restart">Restart</string>
+
     <string-array name="entryvalues_lang">
         <item>default</item>
         <item>ru</item>
