@@ -4,6 +4,7 @@ import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEnti
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andy on 28.11.16.
@@ -11,5 +12,7 @@ import java.util.ArrayList;
 
 public interface MedicineDao extends Serializable {
 
-    public ArrayList<MedicineEntity> queryAllMedicine() throws Exception;
+    ArrayList<MedicineEntity> queryAllMedicine() throws Exception;
+    ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception;
+    long addMedicine(MedicineEntity entity) throws Exception;
 }
