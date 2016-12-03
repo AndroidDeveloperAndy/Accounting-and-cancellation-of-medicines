@@ -6,13 +6,15 @@ package com.example.andy.accountingandcancellationofmedicines.database;
 
 public class UsersTable {
 
-    private static final String NameUsersTable= "users";
+    public static final String NameUsersTable= "users";
 
     public static final class ColumnUsersTable{
-        private static final String IdUser= "IdUser";
-        private static final String SurnameUser= "SurnameUser";
-        private static final String NameUser= "NameUser";
-        private static final String PatronymicUser= "PatronymicUser";
-        private static final String TypeUser= "TypeUser";
+        public static final String IdUser= "IdUser";
+        public static final String LoginUser= "Login";
+        public static final String PasswordUser= "Password";
+        public static final String SurnameUser= "SurnameUser";
+        public static final String NameUser= "NameUser";
+        public static final String PatronymicUser= "PatronymicUser";
+        public static final String TypeUser= "TypeUser";
     }
 }

@@ -9,6 +9,8 @@ public class UsersEntity {
     private String nameUser;
     private String patronymicUser;
     private String typeUser;
+    private String Login;
+    private String Password;
 
     public Integer getIdUser() {
         return idUser;
@@ -50,6 +52,22 @@ public class UsersEntity {
         this.typeUser = typeUser;
     }
 
+    public String getLogin() {
+        return Login;
+    }
+
+    public void setLogin(String login) {
+        this.Login = login;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String password) {
+        this.Password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +81,8 @@ public class UsersEntity {
         if (patronymicUser != null ? !patronymicUser.equals(that.patronymicUser) : that.patronymicUser != null)
             return false;
         if (typeUser != null ? !typeUser.equals(that.typeUser) : that.typeUser != null) return false;
+        if (Login != null ? !Login.equals(that.Login) : that.Login != null) return false;
+        if (Password != null ? !Password.equals(that.Password) : that.Password != null) return false;
 
         return true;
     }
@@ -74,6 +94,8 @@ public class UsersEntity {
         result = 31 * result + (nameUser != null ? nameUser.hashCode() : 0);
         result = 31 * result + (patronymicUser != null ? patronymicUser.hashCode() : 0);
         result = 31 * result + (typeUser != null ? typeUser.hashCode() : 0);
+        result = 31 * result + (Login != null ? Login.hashCode() : 0);
+        result = 31 * result + (Password != null ? Password.hashCode() : 0);
         return result;
     }
 }
