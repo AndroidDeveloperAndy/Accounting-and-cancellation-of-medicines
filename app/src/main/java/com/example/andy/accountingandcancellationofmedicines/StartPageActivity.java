@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import com.example.andy.accountingandcancellationofmedicines.dao.CityDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.dao.CountryDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 

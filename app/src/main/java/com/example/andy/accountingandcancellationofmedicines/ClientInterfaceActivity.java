@@ -9,14 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.andy.accountingandcancellationofmedicines.dao.CityDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.dao.CountryDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.database.MedicineTable;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
-import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
 import java.util.List;

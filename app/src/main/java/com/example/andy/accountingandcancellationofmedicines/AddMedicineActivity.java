@@ -11,9 +11,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.andy.accountingandcancellationofmedicines.adapter.ShopAdapter;
-import com.example.andy.accountingandcancellationofmedicines.dao.CityDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.dao.CountryDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.dao.ShopDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.ShopDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.ShopEntity;

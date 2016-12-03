@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
-import com.example.andy.accountingandcancellationofmedicines.dao.MedicineDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
