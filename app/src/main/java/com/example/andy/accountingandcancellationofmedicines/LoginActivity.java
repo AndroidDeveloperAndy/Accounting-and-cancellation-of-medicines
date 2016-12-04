@@ -309,7 +309,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         UserLoginTask(String login, String password) {
             mLogin = login;
             mPassword = password;
-            mUserDao = new UsersDaoImpl(Singl.getInstance(getApplicationContext()).getInstance());
+            mUserDao = new UsersDaoImpl();
         }
 
         @Override
@@ -317,9 +317,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return -CODE_SING_UP_EXEPTION;
-            }
 
             int resultCode = 0;
             UsersEntity entity = mUserDao.read(mLogin);
@@ -339,8 +336,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 break;
             }
             }
-
             return resultCode;
+            } catch (InterruptedException e) {
+                return -CODE_SING_UP_EXEPTION;
+            }
         }
 
         @Override
