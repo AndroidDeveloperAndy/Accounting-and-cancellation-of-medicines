@@ -47,6 +47,11 @@
     <string name="LangSummary">Language application</string>
     <string name="Setting">Setting</string>
     <string name="Restart">Restart</string>
+    <string name="lotNumber">Lot number</string>
+    <string name="toastAdd">Medicine add successful.</string>
+    <string name="surname">Surname</string>
+    <string name="patronymic">Patronymic</string>
+    <string name="user_add">User add successful.</string>
 
     <string-array name="entryvalues_lang">
         <item>default</item>

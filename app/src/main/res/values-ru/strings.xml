@@ -45,5 +45,7 @@
     <string name="Setting">Настройки</string>
     <string name="Restart">Перезапуск</string>
     <string name="enter_name_tablets">Имя таблетки</string>
+    <string name="lotNumber">Номер партии</string>
+    <string name="toastAdd">Лекарство успешно добавлено.</string>
 
 </resources>
