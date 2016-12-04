@@ -3,6 +3,7 @@ package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.MedicineDao;
 import com.example.andy.accountingandcancellationofmedicines.database.MedicineTable;
@@ -31,16 +32,7 @@ public class MedicineDaoImpl implements MedicineDao {
         ArrayList<MedicineEntity> list = new ArrayList<>();
 
         while(c.moveToNext()){
-            MedicineEntity medicineEntity = new MedicineEntity();
-            medicineEntity.setId(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ID)));
-            medicineEntity.setNameMedicine(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.NameMedicine)));
-            medicineEntity.setLotNumber(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.LotNumber)));
-            medicineEntity.setNote(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Note)));
-            medicineEntity.setAmount(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Amount)));
-            medicineEntity.setArrivalDate(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ArrivalDate)));
-            medicineEntity.setDateOfManufacture(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.DateOfManufacture)));
-            medicineEntity.setShelfLife(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ShelfLife)));
-            medicineEntity.setIdMeasure(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.idMeasure)));
+            MedicineEntity medicineEntity = getMedicineEntity(c);
 
             list.add(medicineEntity);
         }
@@ -50,27 +42,33 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception {
-        Cursor c = db.query(MedicineTable.NameMedicineTable, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '"+" ?"+"%'", new String[]{name}, null, null, null);
+        Cursor c = db.query(MedicineTable.NameMedicineTable, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
 
         if(c.moveToFirst()){
             do {
-                MedicineEntity medicineEntity = new MedicineEntity();
-                medicineEntity.setId(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ID)));
-                medicineEntity.setNameMedicine(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.NameMedicine)));
-                medicineEntity.setLotNumber(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.LotNumber)));
-                medicineEntity.setNote(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Note)));
-                medicineEntity.setAmount(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Amount)));
-                medicineEntity.setArrivalDate(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ArrivalDate)));
-                medicineEntity.setDateOfManufacture(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.DateOfManufacture)));
-                medicineEntity.setShelfLife(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ShelfLife)));
-                medicineEntity.setIdMeasure(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.idMeasure)));
+                MedicineEntity medicineEntity = getMedicineEntity(c);
 
                 list.add(medicineEntity);
             } while (c.moveToNext());
         }
         c.close();
         return list;
+    }
+
+    @NonNull
+    private MedicineEntity getMedicineEntity(Cursor c) {
+        MedicineEntity medicineEntity = new MedicineEntity();
+        medicineEntity.setId(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ID)));
+        medicineEntity.setNameMedicine(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.NameMedicine)));
+        medicineEntity.setLotNumber(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.LotNumber)));
+        medicineEntity.setNote(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Note)));
+        medicineEntity.setAmount(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.Amount)));
+        medicineEntity.setArrivalDate(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ArrivalDate)));
+        medicineEntity.setDateOfManufacture(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.DateOfManufacture)));
+        medicineEntity.setShelfLife(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ShelfLife)));
+        medicineEntity.setIdMeasure(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.idMeasure)));
+        return medicineEntity;
     }
 
     @Override
@@ -87,6 +85,12 @@ public class MedicineDaoImpl implements MedicineDao {
 
 
         return db.insertOrThrow(MedicineTable.NameMedicineTable, null,newValues);
+    }
+
+    @Override
+    public int deleteMedicine(MedicineEntity entity) {
+        db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(entity.getId())});
+        return 0;
     }
 
 

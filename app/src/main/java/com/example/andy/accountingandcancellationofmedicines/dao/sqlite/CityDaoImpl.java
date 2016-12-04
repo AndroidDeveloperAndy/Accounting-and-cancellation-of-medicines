@@ -18,7 +18,6 @@ import java.util.List;
 public class CityDaoImpl implements CityDao {
 
     private final SQLiteDatabase db;
-    private static final String LOG_TAG = CityDaoImpl.class.getName();
 
     public CityDaoImpl(){
         db = Singl.getInstance();

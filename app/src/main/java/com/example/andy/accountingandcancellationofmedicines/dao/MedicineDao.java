@@ -15,4 +15,5 @@ public interface MedicineDao extends Serializable {
     ArrayList<MedicineEntity> queryAllMedicine() throws Exception;
     ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception;
     long addMedicine(MedicineEntity entity) throws Exception;
+    int deleteMedicine(MedicineEntity entity);
 }
