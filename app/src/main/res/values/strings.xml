@@ -52,6 +52,7 @@
     <string name="surname">Surname</string>
     <string name="patronymic">Patronymic</string>
     <string name="user_add">User add successful.</string>
+    <string name="edit">Edit</string>
 
     <string-array name="entryvalues_lang">
         <item>default</item>

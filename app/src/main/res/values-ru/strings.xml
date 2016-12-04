@@ -50,5 +50,6 @@
     <string name="patronymic">Отчество</string>
     <string name="surname">Фамилия</string>
     <string name="user_add">Клиент успешно добавлен.</string>
+    <string name="edit">Редактирование</string>
 
 </resources>

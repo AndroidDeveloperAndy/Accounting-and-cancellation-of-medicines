@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/light_yellow"
-    tools:context="com.example.andy.accountingandcancellationofmedicines.OutAllMedicineActivity">
+    tools:context="com.example.andy.accountingandcancellationofmedicines.OutAllMedicineActivity"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +34,8 @@
         android:choiceMode="multipleChoice"
         android:background="@color/light_yellow"
         android:layout_alignParentEnd="true"
-        style="@android:style/Widget.DeviceDefault.Light.ListView" />
+        style="@android:style/Widget.DeviceDefault.Light.ListView"
+        android:layout_weight="3.91" />
 
     <Button
         android:layout_width="wrap_content"
@@ -45,4 +47,14 @@
         android:layout_alignParentEnd="true"
         android:textColor="@color/white"
         android:textSize="10sp" />
+
+    <Button
+        android:text="@string/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonEditMedicine"
+        android:layout_alignTop="@+id/DeleteButton"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:layout_gravity="center" />
 </RelativeLayout>

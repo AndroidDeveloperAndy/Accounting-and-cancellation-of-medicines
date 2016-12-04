@@ -18,7 +18,7 @@ import java.util.Date;
 public class OutAllMedicineActivity extends AppCompatActivity {
 
     ListView lvMain;
-    Button deleteMedicine;
+    Button deleteMedicine,editMedicine;
     ArrayList<MedicineEntity> medicineEntityArrayList;
     MedicineAdapter adapterListView;
 
@@ -45,6 +45,16 @@ public class OutAllMedicineActivity extends AppCompatActivity {
             adapterListView = new MedicineAdapter(this, medicineEntityArrayList);
             lvMain = (ListView) findViewById(R.id.listAllMedicine);
             lvMain.setAdapter(adapterListView);
+
+            editMedicine = (Button) findViewById(R.id.buttonEditMedicine);
+            editMedicine.setBackgroundColor(Color.rgb(98,99,155));
+            editMedicine.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
