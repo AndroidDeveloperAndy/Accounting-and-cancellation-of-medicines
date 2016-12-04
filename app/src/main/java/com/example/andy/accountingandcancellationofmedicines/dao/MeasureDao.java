@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface MeasureDao extends Serializable {
 
-    public List<MeasurEntity> queryMeasureName() throws Exception;
+    List<MeasurEntity> queryMeasureName() throws Exception;
 }

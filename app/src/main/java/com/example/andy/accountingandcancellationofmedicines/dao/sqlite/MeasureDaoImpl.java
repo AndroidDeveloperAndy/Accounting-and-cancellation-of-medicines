@@ -30,12 +30,8 @@ public class MeasureDaoImpl implements MeasureDao {
 
         while(c.moveToNext()){
             MeasurEntity measurEntity = new MeasurEntity();
-            measurEntity.setIdMedicine(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.IdMedicine)));
-            measurEntity.setGram(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.gram)));
-            measurEntity.setKilo(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.kilo)));
-            measurEntity.setLiters(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.liters)));
-            measurEntity.setMliters(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.mliters)));
-            measurEntity.setPieces(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.pieces)));
+            measurEntity.setIdMeasure(c.getInt(c.getColumnIndex(MeasurTable.ColumnMeasurTable.IdMeasure)));
+            measurEntity.setName(c.getString(c.getColumnIndex(MeasurTable.ColumnMeasurTable.Name)));
 
             list.add(measurEntity);
         }
