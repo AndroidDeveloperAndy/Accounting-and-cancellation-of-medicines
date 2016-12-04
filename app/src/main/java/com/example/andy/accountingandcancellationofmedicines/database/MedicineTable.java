@@ -17,5 +17,6 @@ public final class MedicineTable {
         public static final String ArrivalDate= "ArrivalDate";
         public static final String DateOfManufacture= "DateOfManufacture";
         public static final String ShelfLife= "ShelfLife";
+        public static final String idMeasure= "idMeasure";
     }
 }

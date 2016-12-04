@@ -6,15 +6,15 @@ package com.example.andy.accountingandcancellationofmedicines.database;
 
 public class LotTable {
 
-    private static final String NameLotTable= "lot";
+    public static final String NameLotTable= "lot";
 
     public static final class ColumnLotTable{
-        private static final String LNumber= "LNumber";
-        private static final String IdLot= "IdLot";
-        private static final String NameCountry= "NameCountry";
-        private static final String NameCity= "NameCity";
-        private static final String Adress= "Adress";
-        private static final String DepartureDate= "DepartureDate";
-        private static final String PriceOne= "PriceOne";
+        public static final String LNumber= "LNumber";
+        public static final String IdLot= "IdLot";
+        public static final String NameCountry= "NameCountry";
+        public static final String NameCity= "NameCity";
+        public static final String Adress= "Adress";
+        public static final String DepartureDate= "DepartureDate";
+        public static final String PriceOne= "PriceOne";
     }
 }
