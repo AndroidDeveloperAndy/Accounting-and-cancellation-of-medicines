@@ -12,11 +12,12 @@ public class MedicineEntity {
     private String arrivalDate;
     private String dateOfManufacture;
     private String shelfLife;
+    private Integer idMeasure;
 
     public MedicineEntity() {
     }
 
-    public MedicineEntity(Integer id, String nameMedicine, Integer lotNumber, String note, Integer amount, String arrivalDate, String dateOfManufacture, String shelfLife) {
+    public MedicineEntity(Integer id, String nameMedicine, Integer lotNumber, String note, Integer amount, String arrivalDate, String dateOfManufacture, String shelfLife,Integer idMeasure) {
         this.id = id;
         this.nameMedicine = nameMedicine;
         this.lotNumber = lotNumber;
@@ -25,6 +26,7 @@ public class MedicineEntity {
         this.arrivalDate = arrivalDate;
         this.dateOfManufacture = dateOfManufacture;
         this.shelfLife = shelfLife;
+        this.idMeasure = idMeasure;
     }
 
     public Integer getId() {
@@ -91,6 +93,14 @@ public class MedicineEntity {
         this.shelfLife = shelfLife;
     }
 
+    public Integer getIdMeasure() {
+        return idMeasure;
+    }
+
+    public void setIdMeasure(Integer idMeasure) {
+        this.idMeasure = idMeasure;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +117,7 @@ public class MedicineEntity {
         if (dateOfManufacture != null ? !dateOfManufacture.equals(that.dateOfManufacture) : that.dateOfManufacture != null)
             return false;
         if (shelfLife != null ? !shelfLife.equals(that.shelfLife) : that.shelfLife != null) return false;
+        if (idMeasure != null ? !idMeasure.equals(that.idMeasure) : that.idMeasure != null) return false;
 
         return true;
     }
@@ -121,6 +132,22 @@ public class MedicineEntity {
         result = 31 * result + (arrivalDate != null ? arrivalDate.hashCode() : 0);
         result = 31 * result + (dateOfManufacture != null ? dateOfManufacture.hashCode() : 0);
         result = 31 * result + (shelfLife != null ? shelfLife.hashCode() : 0);
+        result = 31 * result + (idMeasure != null ? idMeasure.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicineEntity{" +
+                "id=" + id +
+                ", nameMedicine='" + nameMedicine + '\'' +
+                ", lotNumber=" + lotNumber +
+                ", note='" + note + '\'' +
+                ", amount=" + amount +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", dateOfManufacture='" + dateOfManufacture + '\'' +
+                ", shelfLife='" + shelfLife + '\'' +
+                ", idMeasure='" + idMeasure + '\'' +
+                '}';
     }
 }

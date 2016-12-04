@@ -99,4 +99,6 @@ public class LotEntity {
         result = 31 * result + (priceOne != null ? priceOne.hashCode() : 0);
         return result;
     }
+
+
 }
