@@ -10,4 +10,5 @@ import java.io.Serializable;
 
 public interface UsersDao extends Serializable{
     UsersEntity read(String login);
+    long addUser(UsersEntity entity) throws Exception;
 }
