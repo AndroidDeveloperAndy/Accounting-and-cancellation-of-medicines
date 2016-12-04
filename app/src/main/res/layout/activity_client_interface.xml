@@ -1,42 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/light_yellow"
-    tools:context="com.example.andy.accountingandcancellationofmedicines.ClientInterfaceActivity">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
-
-        <ListView
-            android:layout_width="376dp"
-            android:id="@+id/listView"
-            android:textStyle="bold|italic"
-            android:choiceMode="singleChoice"
-            tools:listitem="@android:layout/simple_list_item_checked"
-            android:layout_alignParentStart="true"
-            android:layout_height="406dp" />
-
-        <Button
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:text="@string/order"
-            android:textStyle="bold|italic"
-            android:id="@+id/OrderButton"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
+    android:orientation="vertical"
+    tools:context="com.example.andy.accountingandcancellationofmedicines.ClientInterfaceActivity"
+    android:weightSum="1">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -84,23 +57,48 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:textStyle="bold|italic"
-        android:id="@+id/SearchButton"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/white"/>
-
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="100dp"
-        android:layout_height="110dp"
-        android:id="@+id/linearLayout"
-        android:layout_alignParentTop="true">
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="1"
+        android:background="@color/light_yellow"
+        android:layout_height="400dp"
+        android:layout_weight="2.50">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:textStyle="bold|italic"
+            android:id="@+id/SearchButton"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_above="@+id/listMedicineClient"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="18dp" />
+
+        <ListView
+            android:layout_width="350dp"
+            android:id="@+id/listMedicineClient"
+            android:textStyle="bold|italic"
+            android:choiceMode="singleChoice"
+            tools:listitem="@android:layout/simple_list_item_checked"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_height="262dp"
+            android:layout_weight="0.41" />
+
+        <Button
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:text="@string/order"
+            android:textStyle="bold|italic"
+            android:id="@+id/OrderButton"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

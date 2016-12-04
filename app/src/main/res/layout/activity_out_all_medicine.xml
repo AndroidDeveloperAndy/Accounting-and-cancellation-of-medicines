@@ -43,5 +43,6 @@
         android:id="@+id/DeleteButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="10sp" />
 </RelativeLayout>

@@ -84,5 +84,6 @@
         android:textStyle="bold|italic"
         android:textColor="@color/white"
         android:layout_below="@+id/patronymic_client"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="10sp" />
 </RelativeLayout>

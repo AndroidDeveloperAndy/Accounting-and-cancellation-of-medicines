@@ -46,17 +46,37 @@
         </TextView>
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/txAdress"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        android:layout_gravity="center"
+        <TextView
+            android:text="@string/adress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_weight="0.11"
+            android:textSize="10sp"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
 
-        android:layout_marginRight="10dp"
+        <TextView
+            android:id="@+id/txAdress"
 
-        android:text="@string/adress"
-        android:textColor="@android:color/holo_green_light">
-    </TextView>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+
+            android:layout_marginRight="10dp"
+
+            android:text="@string/adress"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_weight="0.37"
+            android:textAlignment="center">
+        </TextView>
+    </LinearLayout>
+
 </LinearLayout>

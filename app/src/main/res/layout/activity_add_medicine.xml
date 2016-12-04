@@ -57,7 +57,7 @@
         android:id="@+id/Amount"
         android:layout_below="@+id/editTextAD"
         android:hint="@string/amount"
-        android:layout_alignEnd="@+id/shelfLife" />
+        android:layout_alignEnd="@+id/DateOfManufacture" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -76,11 +76,11 @@
         android:id="@+id/MeasurAmount"
         android:layout_alignTop="@+id/Amount"
         android:layout_above="@+id/DateOfManufacture"
-        android:layout_width="match_parent"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_toEndOf="@+id/editTextAD"
+        android:layout_width="wrap_content"
         android:textAlignment="center"
-        android:background="@android:drawable/spinner_dropdown_background" />
+        android:background="@android:drawable/spinner_dropdown_background"
+        android:layout_alignEnd="@+id/spinnerLotNumber"
+        android:layout_toEndOf="@+id/editTextAD" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -121,7 +121,8 @@
             android:id="@+id/add_medicine_pageAdd"
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/adress" />
+            android:layout_alignStart="@+id/adress"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
@@ -145,14 +146,14 @@
 
     <TextView
         android:text="@string/lotNumber"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:fontFamily="sans-serif"
         android:textColor="@color/black"
+        android:layout_width="150dp"
         android:layout_alignBaseline="@+id/editTextNameMedicine"
         android:layout_alignBottom="@+id/editTextNameMedicine"
-        android:layout_toEndOf="@+id/Title" />
+        android:layout_alignStart="@+id/spinnerLotNumber" />
 
 </RelativeLayout>
 </ScrollView>

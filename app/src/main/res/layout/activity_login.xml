@@ -92,7 +92,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold|italic"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:layout_gravity="top|left|bottom|right"
                 android:textColor="@color/white"/>
 
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/check_in"
                     android:textStyle="bold|italic"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:id="@+id/registration"
                     android:layout_gravity="left"
                     android:textColor="@color/colorPrimary" />
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/restore"
                     android:textStyle="bold|italic"
-                    android:textSize="15sp"
+                    android:textSize="10sp"
                     android:id="@+id/restore_password"
                     android:layout_gravity="right"
                     android:textColor="@color/colorPrimary"
