@@ -16,7 +16,7 @@
     <string name="adress">Адрес</string>
     <string name="amount">Количество</string>
     <string name="check_in">Зарегистрироваться</string>
-    <string name="city">Горд</string>
+    <string name="city">Город</string>
     <string name="code_country">Код страны</string>
     <string name="code_phone">Код телефона</string>
     <string name="country">Страна</string>
@@ -47,5 +47,8 @@
     <string name="enter_name_tablets">Имя таблетки</string>
     <string name="lotNumber">Номер партии</string>
     <string name="toastAdd">Лекарство успешно добавлено.</string>
+    <string name="patronymic">Отчество</string>
+    <string name="surname">Фамилия</string>
+    <string name="user_add">Клиент успешно добавлен.</string>
 
 </resources>
