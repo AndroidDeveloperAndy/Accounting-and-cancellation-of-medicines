@@ -32,15 +32,6 @@
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextNameMedicine"
-        android:hint="@string/name_medicine"
-        android:layout_below="@+id/Title"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/editTextNote"
         android:layout_below="@+id/editTextNameMedicine"
         android:layout_alignParentStart="true"
@@ -79,49 +70,17 @@
         android:hint="@string/shelf_life"
         android:layout_toStartOf="@+id/Title" />
 
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/code_country"
-        android:hint="@string/code_country"
-        android:layout_below="@+id/adress"
-        android:layout_toEndOf="@+id/DateOfManufacture" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/code_phone"
-        android:hint="@string/code_phone"
-        android:layout_below="@+id/code_country"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/DateOfManufacture" />
-
     <Spinner
         android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/MeasurAmount"
         android:layout_alignTop="@+id/Amount"
-        android:layout_toEndOf="@+id/editTextNameMedicine"
-        android:spinnerMode="dropdown" />
-
-    <TextView
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/adding"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/price_one"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="cursive"
-        android:typeface="serif"
-        android:textColor="@android:color/holo_orange_dark" />
+        android:layout_above="@+id/DateOfManufacture"
+        android:layout_width="match_parent"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_toEndOf="@+id/editTextAD"
+        android:textAlignment="center"
+        android:background="@android:drawable/spinner_dropdown_background" />
 
     <EditText
         android:textStyle="bold|italic"
@@ -129,28 +88,18 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/departure_date"
-        android:hint="@string/departure_date"
-        android:layout_below="@+id/DateOfManufacture"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/price_one"
-        android:hint="@string/price_one"
-        android:layout_below="@+id/shelfLife"
+        android:id="@+id/DateOfManufacture"
+        android:hint="@string/date_manufacture"
+        android:layout_below="@+id/Amount"
         android:layout_alignParentStart="true" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_below="@+id/shelfLife"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3">
+        android:layout_height="300dp"
+        android:weightSum="1">
 
         <ListView
             android:layout_width="match_parent"
@@ -161,7 +110,8 @@
             style="@style/Widget.AppCompat.Light.ListView.DropDown"
             android:headerDividersEnabled="false"
             android:layout_below="@+id/textView3"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_weight="0.81" />
 
         <Button
             android:textStyle="bold|italic"
@@ -175,43 +125,33 @@
 
     </LinearLayout>
 
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
+    <Spinner
         android:layout_height="wrap_content"
-        android:id="@+id/adress"
-        android:hint="@string/adress"
-        android:layout_marginStart="12dp"
+        android:id="@+id/spinnerLotNumber"
         android:layout_above="@+id/editTextAD"
-        android:layout_toEndOf="@+id/Title" />
+        android:layout_toEndOf="@+id/DateOfManufacture"
+        android:layout_marginBottom="20dp"
+        android:layout_width="100dp"
+        android:background="@android:drawable/spinner_dropdown_background" />
 
     <EditText
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/DateOfManufacture"
-        android:hint="@string/date_manufacture"
-        android:layout_below="@+id/Amount"
+        android:id="@+id/editTextNameMedicine"
+        android:hint="@string/name_medicine"
+        android:layout_below="@+id/Title"
         android:layout_alignParentStart="true" />
 
-    <Spinner
+    <TextView
+        android:text="@string/lotNumber"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SpinnerCountryAdd"
-        android:background="@android:drawable/spinner_dropdown_background"
+        android:id="@+id/textView"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"
+        android:layout_alignBaseline="@+id/editTextNameMedicine"
         android:layout_alignBottom="@+id/editTextNameMedicine"
-        android:layout_toEndOf="@+id/editTextNameMedicine"
-        android:layout_width="80dp" />
-
-    <Spinner
-        android:textStyle="bold|italic"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerCityAdd"
-        android:spinnerMode="dropdown"
-        android:background="@android:drawable/spinner_dropdown_background"
-        android:layout_width="100dp"
-        android:layout_above="@+id/adress"
         android:layout_toEndOf="@+id/Title" />
 
 </RelativeLayout>
