@@ -40,6 +40,7 @@ public class MedicineDaoImpl implements MedicineDao {
             medicineEntity.setArrivalDate(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ArrivalDate)));
             medicineEntity.setDateOfManufacture(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.DateOfManufacture)));
             medicineEntity.setShelfLife(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ShelfLife)));
+            medicineEntity.setIdMeasure(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.idMeasure)));
 
             list.add(medicineEntity);
         }
@@ -63,6 +64,8 @@ public class MedicineDaoImpl implements MedicineDao {
                 medicineEntity.setArrivalDate(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ArrivalDate)));
                 medicineEntity.setDateOfManufacture(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.DateOfManufacture)));
                 medicineEntity.setShelfLife(c.getString(c.getColumnIndex(MedicineTable.ColumnMedicineTable.ShelfLife)));
+                medicineEntity.setIdMeasure(c.getInt(c.getColumnIndex(MedicineTable.ColumnMedicineTable.idMeasure)));
+
                 list.add(medicineEntity);
             } while (c.moveToNext());
         }
@@ -72,8 +75,18 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public long addMedicine(MedicineEntity entity) throws Exception {
-        long c = db.insert(MedicineTable.NameMedicineTable, null,null);
-        return c;
+        ContentValues newValues = new ContentValues();
+        newValues.put(MedicineTable.ColumnMedicineTable.NameMedicine, entity.getNameMedicine());
+        newValues.put(MedicineTable.ColumnMedicineTable.LotNumber, entity.getLotNumber());
+        newValues.put(MedicineTable.ColumnMedicineTable.Amount, entity.getAmount());
+        newValues.put(MedicineTable.ColumnMedicineTable.ArrivalDate, entity.getArrivalDate());
+        newValues.put(MedicineTable.ColumnMedicineTable.DateOfManufacture, entity.getDateOfManufacture());
+        newValues.put(MedicineTable.ColumnMedicineTable.Note, entity.getNote());
+        newValues.put(MedicineTable.ColumnMedicineTable.ShelfLife, entity.getShelfLife());
+        newValues.put(MedicineTable.ColumnMedicineTable.idMeasure,entity.getIdMeasure());
+
+
+        return db.insertOrThrow(MedicineTable.NameMedicineTable, null,newValues);
     }
 
 
