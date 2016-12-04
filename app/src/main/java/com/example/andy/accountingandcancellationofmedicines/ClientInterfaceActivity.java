@@ -8,12 +8,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
+import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,11 @@ public class ClientInterfaceActivity extends AppCompatActivity {
     List<CountryEntity> entityListCountryClient;
     List<CityEntity> entityListCityClient;
     Button order,search;
+    EditText txFindText;
+    ListView listMedicine;
 
+    MedicineAdapter adapterList;
+    ArrayList<MedicineEntity> medicineEntityArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +107,40 @@ public class ClientInterfaceActivity extends AppCompatActivity {
             Log.e(TAG, "error ", e);
 
         }
+        txFindText = (EditText) findViewById(R.id.find_client_medicine);
         order = (Button)findViewById(R.id.OrderButton);
         order.setBackgroundColor(Color.rgb(98,99,155));
         search = (Button)findViewById(R.id.SearchButton);
         search.setBackgroundColor(Color.rgb(98,99,155));
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(checkInputField())
+                {
+                    FindAtTheBase();
+                    adapterList = new MedicineAdapter(ClientInterfaceActivity.this, medicineEntityArrayList);
+                    listMedicine = (ListView) findViewById(R.id.listMedicineClient);
+                    listMedicine.setAdapter(adapterList);
+                    adapterList.notifyDataSetChanged();
+                }
+                else {
+                    txFindText.setError(getString(R.string.error_field_required));
+                    txFindText.requestFocus();
+                }
+            }
+        });
 
+    }
+    private void FindAtTheBase() {
+        try {
+            medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(txFindText.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkInputField() {
+        return txFindText.getText().toString().length() > 0;
     }
 
 }

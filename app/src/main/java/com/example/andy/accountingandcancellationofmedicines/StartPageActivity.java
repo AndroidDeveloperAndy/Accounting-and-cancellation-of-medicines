@@ -2,6 +2,7 @@ package com.example.andy.accountingandcancellationofmedicines;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +13,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
+import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StartPageActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartPageActivity extends ActionBarActivity implements View.OnClickListener {
 
     private static final String TAG = StartPageActivity.class.getName();
     Spinner district,country;
     EditText searchMedicine;
     ListView listMedicine;
-    Button btAdd,btOut;
+    Button btAdd,btOut,btSearch;
 
-
+    MedicineAdapter adapterList;
+    ArrayList<MedicineEntity> medicineEntityArrayList;
     List<CountryEntity> entityListCountry;
     List<CityEntity> entityList;
 
@@ -100,7 +106,8 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
 
         searchMedicine = (EditText) findViewById(R.id.editTextSearchMedicine);
 
-        listMedicine = (ListView) findViewById(R.id.listViewMedicine);
+
+
 
             btAdd = (Button) findViewById(R.id.buttonAdd);
             btAdd.setBackgroundColor(Color.rgb(98,99,155));
@@ -108,6 +115,26 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             btOut = (Button) findViewById(R.id.buttonOut);
             btOut.setBackgroundColor(Color.rgb(98,99,155));
 
+            btSearch = (Button) findViewById(R.id.button_search_sotrud);
+            btSearch.setBackgroundColor(Color.rgb(98,99,155));
+
+            btSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(checkInputField())
+                    {
+                        FindAtTheBase();
+                        adapterList = new MedicineAdapter(StartPageActivity.this, medicineEntityArrayList);
+                        listMedicine = (ListView) findViewById(R.id.listViewMedicine);
+                        listMedicine.setAdapter(adapterList);
+                        adapterList.notifyDataSetChanged();
+                    }
+                    else {
+                        searchMedicine.setError(getString(R.string.error_field_required));
+                        searchMedicine.requestFocus();
+                    }
+                }
+            });
 
             btAdd.setOnClickListener(this);
         btOut.setOnClickListener(this);
@@ -117,6 +144,17 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    private void FindAtTheBase() {
+        try {
+            medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(searchMedicine.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkInputField() {
+        return searchMedicine.getText().toString().length() > 0;
+    }
     @Override
     public void onClick(View view) {
         Intent intent;
