@@ -26,7 +26,6 @@ public class Singl {
     }
 
     public static SQLiteDatabase getInstance() {
-
         if(ourInstance == null)
             throw new RuntimeException("not initialized!!!");
         return ourInstance.db;

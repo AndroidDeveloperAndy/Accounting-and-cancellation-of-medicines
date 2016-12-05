@@ -3,6 +3,8 @@ package com.example.andy.accountingandcancellationofmedicines;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,22 +32,24 @@ public class OutAllMedicineActivity extends AppCompatActivity {
 
             medicineEntityArrayList = new MedicineDaoImpl().queryAllMedicine();
 
-            long date = new Date().getTime();
-
             deleteMedicine = (Button) findViewById(R.id.DeleteButton);
             deleteMedicine.setBackgroundColor(Color.rgb(98,99,155));
-
-            View.OnClickListener deleteMedicine = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    }
-                };
 
             adapterListView = new MedicineAdapter(this, medicineEntityArrayList);
             lvMain = (ListView) findViewById(R.id.listAllMedicine);
             lvMain.setAdapter(adapterListView);
-
+            lvMain.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            deleteMedicine.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        new MedicineDaoImpl().deleteMedicine(lvMain.getCheckedItemPosition());
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    adapterListView.notifyDataSetChanged();
+                }
+            });
             editMedicine = (Button) findViewById(R.id.buttonEditMedicine);
             editMedicine.setBackgroundColor(Color.rgb(98,99,155));
             editMedicine.setOnClickListener(new View.OnClickListener() {

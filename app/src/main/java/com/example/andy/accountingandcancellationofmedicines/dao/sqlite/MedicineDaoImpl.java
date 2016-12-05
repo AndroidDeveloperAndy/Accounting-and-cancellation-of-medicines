@@ -20,7 +20,6 @@ import java.util.List;
 public class MedicineDaoImpl implements MedicineDao {
 
     private final SQLiteDatabase db;
-    private static final String LOG_TAG = MedicineDaoImpl.class.getName();
 
     public MedicineDaoImpl(){
         db = Singl.getInstance();
@@ -88,10 +87,8 @@ public class MedicineDaoImpl implements MedicineDao {
     }
 
     @Override
-    public int deleteMedicine(MedicineEntity entity) {
-        db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(entity.getId())});
+    public int deleteMedicine(long id) {
+        db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
         return 0;
     }
-
-
 }
