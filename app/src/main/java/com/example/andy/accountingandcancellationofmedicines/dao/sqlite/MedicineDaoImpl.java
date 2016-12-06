@@ -88,7 +88,6 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public int deleteMedicine(long id) {
-        db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
-        return 0;
+        return db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
     }
 }

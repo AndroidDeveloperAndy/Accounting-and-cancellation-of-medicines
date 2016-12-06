@@ -1,5 +1,8 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -134,7 +137,23 @@ public class ClientInterfaceActivity extends AppCompatActivity {
     private void FindAtTheBase() {
         try {
             medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(txFindText.getText().toString());
-        } catch (Exception e) {
+            if(medicineEntityArrayList.size() == 0)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ClientInterfaceActivity.this);
+                builder.setTitle("Repeat the find.")
+                        .setMessage("Nothing was found.")
+                        .setIcon(R.drawable.notfound);
+                builder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                builder.setCancelable(true);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+            } catch (Exception e) {
             e.printStackTrace();
         }
     }
