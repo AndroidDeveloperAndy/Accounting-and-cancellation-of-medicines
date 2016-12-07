@@ -1,13 +1,22 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,9 +35,10 @@ import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEnti
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientInterfaceActivity extends AppCompatActivity {
+public class ClientActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = ClientInterfaceActivity.class.getName();
+    private static final String TAG = ClientActivity.class.getName();
     Spinner districtClient,countryClient;
     List<CountryEntity> entityListCountryClient;
     List<CityEntity> entityListCityClient;
@@ -41,10 +51,20 @@ public class ClientInterfaceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
+        try{
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client_interface);
+        setContentView(R.layout.activity_client);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         districtClient = (Spinner) findViewById(R.id.client_district);
         districtClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -63,7 +83,7 @@ public class ClientInterfaceActivity extends AppCompatActivity {
         final List<String> listCountry = new ArrayList<>();
 
 
-            entityListCountryClient = new CountryDaoImpl().queryCountryName();
+        entityListCountryClient = new CountryDaoImpl().queryCountryName();
 
         for (CountryEntity o: entityListCountryClient)
             listCountry.add(o.getName());
@@ -72,7 +92,7 @@ public class ClientInterfaceActivity extends AppCompatActivity {
         adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countryClient = (Spinner) findViewById(R.id.client_city);
         countryClient.setAdapter(adapterCountry);
-            countryClient.setPrompt("Страна");
+        countryClient.setPrompt("Страна");
         countryClient.setSelection(1);
         countryClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -86,7 +106,7 @@ public class ClientInterfaceActivity extends AppCompatActivity {
                     entityListCityClient = new CityDaoImpl().queryCitys(entityListCountryClient.get(position).getIdCountry());
                     for (CityEntity o : entityListCityClient)
                         listCity.add(o.getName());
-                    adapterCity = new ArrayAdapter<>(ClientInterfaceActivity.this, android.R.layout.simple_spinner_item, listCity);
+                    adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
 
                     adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -105,41 +125,41 @@ public class ClientInterfaceActivity extends AppCompatActivity {
 
             }
         });
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, "error ", e);
-
-        }
-        txFindText = (EditText) findViewById(R.id.find_client_medicine);
-        order = (Button)findViewById(R.id.OrderButton);
-        order.setBackgroundColor(Color.rgb(98,99,155));
-        search = (Button)findViewById(R.id.SearchButton);
-        search.setBackgroundColor(Color.rgb(98,99,155));
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkInputField())
-                {
-                    FindAtTheBase();
-                    adapterList = new MedicineAdapter(ClientInterfaceActivity.this, medicineEntityArrayList);
-                    listMedicine = (ListView) findViewById(R.id.listMedicineClient);
-                    listMedicine.setAdapter(adapterList);
-                    adapterList.notifyDataSetChanged();
-                }
-                else {
-                    txFindText.setError(getString(R.string.error_field_required));
-                    txFindText.requestFocus();
-                }
-            }
-        });
+    } catch (Exception e) {
+        e.printStackTrace();
+        Log.e(TAG, "error ", e);
 
     }
+    txFindText = (EditText) findViewById(R.id.find_client_medicine);
+    order = (Button)findViewById(R.id.OrderButton);
+    order.setBackgroundColor(Color.rgb(98,99,155));
+    search = (Button)findViewById(R.id.SearchButton);
+    search.setBackgroundColor(Color.rgb(98,99,155));
+    search.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(checkInputField())
+            {
+                FindAtTheBase();
+                adapterList = new MedicineAdapter(ClientActivity.this, medicineEntityArrayList);
+                listMedicine = (ListView) findViewById(R.id.listMedicineClient);
+                listMedicine.setAdapter(adapterList);
+                adapterList.notifyDataSetChanged();
+            }
+            else {
+                txFindText.setError(getString(R.string.error_field_required));
+                txFindText.requestFocus();
+            }
+        }
+    });
+
+}
     private void FindAtTheBase() {
         try {
             medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(txFindText.getText().toString());
             if(medicineEntityArrayList.size() == 0)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ClientInterfaceActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ClientActivity.this);
                 builder.setTitle("Repeat the find.")
                         .setMessage("Nothing was found.")
                         .setIcon(R.drawable.notfound);
@@ -153,7 +173,7 @@ public class ClientInterfaceActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
             }
-            } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -162,4 +182,37 @@ public class ClientInterfaceActivity extends AppCompatActivity {
         return txFindText.getText().toString().length() > 0;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.set, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_settings){
+            startActivity(new Intent(this, Preferences.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

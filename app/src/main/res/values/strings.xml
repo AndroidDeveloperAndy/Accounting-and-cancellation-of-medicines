@@ -53,7 +53,10 @@
     <string name="patronymic">Patronymic</string>
     <string name="user_add">User add successful.</string>
     <string name="edit">Edit</string>
-
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="basket">Shopping cart</string>
     <string-array name="entryvalues_lang">
         <item>default</item>
         <item>ru</item>
@@ -64,4 +67,5 @@
         <item>Русский</item>
         <item>Английский</item>
     </string-array>
+
 </resources>

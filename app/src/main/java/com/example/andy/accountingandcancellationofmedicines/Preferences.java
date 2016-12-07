@@ -31,11 +31,9 @@ public class Preferences extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {
                 Locale locale = new Locale((String) o);
-                //Locale.setDefault(locale);
                 Configuration configuration = new Configuration();
                 configuration.locale = locale;
                 getBaseContext().getResources().updateConfiguration(configuration, null);
-                //System.exit(1);
                 Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

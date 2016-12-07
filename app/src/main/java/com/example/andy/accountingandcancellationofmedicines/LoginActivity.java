@@ -353,7 +353,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     break;
                 }
                 case CODE_CLIENT_SUCCESFUL:{
-                    Intent intent = new Intent(LoginActivity.this, ClientInterfaceActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, ClientActivity.class);
                     startActivity(intent);
                     break;
                 } default:{

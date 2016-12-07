@@ -41,17 +41,6 @@
         android:textStyle="bold|italic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/editTextAD"
-        android:layout_below="@+id/editTextNote"
-        android:hint="@string/arrival_date"
-        android:layout_alignEnd="@+id/Amount" />
-
-    <EditText
-        android:textStyle="bold|italic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/Amount"
@@ -154,6 +143,17 @@
         android:layout_alignBaseline="@+id/editTextNameMedicine"
         android:layout_alignBottom="@+id/editTextNameMedicine"
         android:layout_alignStart="@+id/spinnerLotNumber" />
+
+    <EditText
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/editTextAD"
+        android:hint="@string/arrival_date"
+        android:layout_below="@+id/editTextNote"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
 </ScrollView>
