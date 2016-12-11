@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.andy.accountingandcancellationofmedicines.R;
+import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;

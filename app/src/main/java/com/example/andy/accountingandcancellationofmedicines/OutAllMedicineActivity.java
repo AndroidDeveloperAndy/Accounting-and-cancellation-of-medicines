@@ -39,13 +39,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
             deleteMedicine.setBackgroundColor(Color.rgb(98,99,155));
             View v = getLayoutInflater().inflate(R.layout.medicine_item_list, null);
             checkBoxMedicine = (CheckBox) v.findViewById(R.id.cbMedicine);
-            checkBoxMedicine.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(OutAllMedicineActivity.this,
-                            "Checked", Toast.LENGTH_LONG).show();
-                }
-            });
             adapterListView = new MedicineAdapter(this, medicineEntityArrayList);
             lvMain = (ListView) findViewById(R.id.listAllMedicine);
             lvMain.setAdapter(adapterListView);
@@ -55,13 +48,13 @@ public class OutAllMedicineActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         if(checkBoxMedicine.isChecked())
-                            Toast.makeText(OutAllMedicineActivity.this,
-                                    "Checked", Toast.LENGTH_LONG).show();
                             new MedicineDaoImpl().deleteMedicine(lvMain.getCheckedItemPosition());
+                        Toast.makeText(OutAllMedicineActivity.this,
+                                "Checked", Toast.LENGTH_LONG).show();
+                    adapterListView.notifyDataSetChanged();
                     }catch (Exception e) {
                         e.printStackTrace();
                     }
-                    adapterListView.notifyDataSetChanged();
                 }
             });
             editMedicine = (Button) findViewById(R.id.buttonEditMedicine);

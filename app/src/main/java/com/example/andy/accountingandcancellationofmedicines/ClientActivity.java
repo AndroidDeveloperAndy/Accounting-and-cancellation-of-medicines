@@ -3,6 +3,7 @@ package com.example.andy.accountingandcancellationofmedicines;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
@@ -48,6 +50,9 @@ public class ClientActivity extends AppCompatActivity
 
     MedicineAdapter adapterList;
     ArrayList<MedicineEntity> medicineEntityArrayList;
+
+    SharedPreferences sPref;
+    final String SAVED_TEXT = "saved_text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,13 @@ public class ClientActivity extends AppCompatActivity
     txFindText = (EditText) findViewById(R.id.find_client_medicine);
     order = (Button)findViewById(R.id.OrderButton);
     order.setBackgroundColor(Color.rgb(98,99,155));
+        order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveText();
+                loadText();
+            }
+        });
     search = (Button)findViewById(R.id.SearchButton);
     search.setBackgroundColor(Color.rgb(98,99,155));
     search.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +166,20 @@ public class ClientActivity extends AppCompatActivity
     });
 
 }
+    void saveText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(SAVED_TEXT, listMedicine.getCheckedItemPositions().toString());
+        ed.commit();
+        Toast.makeText(this, "The medicine is placed in the cart.", Toast.LENGTH_SHORT).show();
+    }
+
+    void loadText() {
+        sPref = getPreferences(MODE_PRIVATE);
+        //String savedText = sPref.getString(SAVED_TEXT, "");
+        //etText.setText(savedText);
+        Toast.makeText(this, "In the cart.", Toast.LENGTH_SHORT).show();
+    }
     private void FindAtTheBase() {
         try {
             medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(txFindText.getText().toString());
