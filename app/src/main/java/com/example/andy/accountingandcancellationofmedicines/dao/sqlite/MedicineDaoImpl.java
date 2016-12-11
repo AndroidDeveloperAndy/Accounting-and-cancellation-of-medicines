@@ -19,6 +19,7 @@ import java.util.List;
 
 public class MedicineDaoImpl implements MedicineDao {
 
+    private static final String NAME_TABLE = MedicineTable.NameMedicineTable;
     private final SQLiteDatabase db;
 
     public MedicineDaoImpl(){
@@ -27,7 +28,7 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public ArrayList<MedicineEntity> queryAllMedicine() throws Exception {
-        Cursor c = db.query(MedicineTable.NameMedicineTable, null, null, null, null, null, null);
+        Cursor c = db.query(NAME_TABLE, null, null, null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
 
         while(c.moveToNext()){
@@ -41,7 +42,7 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception {
-        Cursor c = db.query(MedicineTable.NameMedicineTable, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
+        Cursor c = db.query(NAME_TABLE, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
 
         if(c.moveToFirst()){
@@ -72,6 +73,14 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public long addMedicine(MedicineEntity entity) throws Exception {
+        ContentValues newValues = getContentValues(entity);
+
+
+        return db.insertOrThrow(NAME_TABLE, null,newValues);
+    }
+
+    @NonNull
+    private ContentValues getContentValues(MedicineEntity entity) {
         ContentValues newValues = new ContentValues();
         newValues.put(MedicineTable.ColumnMedicineTable.NameMedicine, entity.getNameMedicine());
         newValues.put(MedicineTable.ColumnMedicineTable.LotNumber, entity.getLotNumber());
@@ -81,13 +90,19 @@ public class MedicineDaoImpl implements MedicineDao {
         newValues.put(MedicineTable.ColumnMedicineTable.Note, entity.getNote());
         newValues.put(MedicineTable.ColumnMedicineTable.ShelfLife, entity.getShelfLife());
         newValues.put(MedicineTable.ColumnMedicineTable.idMeasure,entity.getIdMeasure());
+        return newValues;
+    }
 
+    @Override
+    public void update(MedicineEntity entity){
 
-        return db.insertOrThrow(MedicineTable.NameMedicineTable, null,newValues);
+        db.update(NAME_TABLE, getContentValues(entity),
+                MedicineTable.ColumnMedicineTable.ID + "= ?" ,
+                new String[]{String.valueOf(entity.getId())});
     }
 
     @Override
     public int deleteMedicine(long id) {
-        return db.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
+        return db.delete(NAME_TABLE, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
     }
 }

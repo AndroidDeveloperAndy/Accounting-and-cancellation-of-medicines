@@ -1,9 +1,11 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by Andy on 27.11.16.
  */
-public class MedicineEntity {
+public class MedicineEntity implements Serializable {
     private Integer id;
     private String nameMedicine;
     private Integer lotNumber;
