@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -103,7 +101,6 @@ public class ClientActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
-
                 try {
                     ArrayAdapter<String> adapterCity;
                     List<String> listCity = new ArrayList<>();
@@ -138,30 +135,24 @@ public class ClientActivity extends AppCompatActivity
     txFindText = (EditText) findViewById(R.id.find_client_medicine);
     order = (Button)findViewById(R.id.OrderButton);
     order.setBackgroundColor(Color.rgb(98,99,155));
-        order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveText();
-                loadText();
-            }
+        order.setOnClickListener(view -> {
+            saveText();
+            loadText();
         });
     search = (Button)findViewById(R.id.SearchButton);
     search.setBackgroundColor(Color.rgb(98,99,155));
-    search.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if(checkInputField())
-            {
-                FindAtTheBase();
-                adapterList = new MedicineAdapter(ClientActivity.this, medicineEntityArrayList);
-                listMedicine = (ListView) findViewById(R.id.listMedicineClient);
-                listMedicine.setAdapter(adapterList);
-                adapterList.notifyDataSetChanged();
-            }
-            else {
-                txFindText.setError(getString(R.string.error_field_required));
-                txFindText.requestFocus();
-            }
+    search.setOnClickListener(view -> {
+        if(checkInputField())
+        {
+            FindAtTheBase();
+            adapterList = new MedicineAdapter(ClientActivity.this, medicineEntityArrayList);
+            listMedicine = (ListView) findViewById(R.id.listMedicineClient);
+            listMedicine.setAdapter(adapterList);
+            adapterList.notifyDataSetChanged();
+        }
+        else {
+            txFindText.setError(getString(R.string.error_field_required));
+            txFindText.requestFocus();
         }
     });
 
@@ -176,8 +167,6 @@ public class ClientActivity extends AppCompatActivity
 
     void loadText() {
         sPref = getPreferences(MODE_PRIVATE);
-        //String savedText = sPref.getString(SAVED_TEXT, "");
-        //etText.setText(savedText);
         Toast.makeText(this, "In the cart.", Toast.LENGTH_SHORT).show();
     }
     private void FindAtTheBase() {
@@ -190,11 +179,7 @@ public class ClientActivity extends AppCompatActivity
                         .setMessage("Nothing was found.")
                         .setIcon(R.drawable.notfound);
                 builder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        (dialog, id) -> dialog.cancel());
                 builder.setCancelable(true);
                 AlertDialog alert = builder.create();
                 alert.show();

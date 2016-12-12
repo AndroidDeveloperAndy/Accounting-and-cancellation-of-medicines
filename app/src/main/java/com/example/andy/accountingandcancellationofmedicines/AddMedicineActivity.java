@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,16 +79,13 @@ public class AddMedicineActivity extends AppCompatActivity {
                 if(getIntent().getSerializableExtra(ARG_MEDICINE) != null) {
                     entity = (MedicineEntity) getIntent().getSerializableExtra(ARG_MEDICINE);
                     add.setText(R.string.update_button);
-                    add.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            try {
-                                ExportDataToEntity();
-                                new MedicineDaoImpl().update(entity);
-                                finish();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                    add.setOnClickListener(view -> {
+                        try {
+                            ExportDataToEntity();
+                            new MedicineDaoImpl().update(entity);
+                            finish();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     });
 
@@ -153,14 +149,11 @@ public class AddMedicineActivity extends AppCompatActivity {
 
 
         add.setBackgroundColor(Color.rgb(98,99,155));
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(checkInputField())
-                    addToBase();
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.toastAdd),Toast.LENGTH_LONG);
-                AddMedicineActivity.this.startActivity(new Intent(AddMedicineActivity.this, StartPageActivity.class));
-            }
+        add.setOnClickListener(view -> {
+            if(checkInputField())
+                addToBase();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.toastAdd),Toast.LENGTH_LONG);
+            AddMedicineActivity.this.startActivity(new Intent(AddMedicineActivity.this, StartPageActivity.class));
         });
     }
 

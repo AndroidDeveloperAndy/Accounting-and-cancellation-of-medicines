@@ -2,6 +2,7 @@ package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.MeasureDao;
 import com.example.andy.accountingandcancellationofmedicines.database.MeasurTable;
@@ -26,6 +27,13 @@ public class MeasureDaoImpl implements MeasureDao {
     @Override
     public List<MeasurEntity> queryMeasureName() throws Exception {
         Cursor c = db.query(MeasurTable.NameMeasurTable, null, null, null, null, null, null);
+        ArrayList<MeasurEntity> list = getMeasureList(c);
+        c.close();
+        return list;
+    }
+
+    @NonNull
+    private ArrayList<MeasurEntity> getMeasureList(Cursor c) {
         ArrayList<MeasurEntity> list = new ArrayList<>();
 
         while(c.moveToNext()){
@@ -35,7 +43,6 @@ public class MeasureDaoImpl implements MeasureDao {
 
             list.add(measurEntity);
         }
-        c.close();
         return list;
     }
 }

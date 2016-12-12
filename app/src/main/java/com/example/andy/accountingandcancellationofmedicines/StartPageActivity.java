@@ -1,11 +1,9 @@
 package com.example.andy.accountingandcancellationofmedicines;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
@@ -61,7 +58,7 @@ public class StartPageActivity extends ActionBarActivity implements View.OnClick
                                                }
                                            });
 
-            ArrayAdapter<String> adapterCountry = null;
+            ArrayAdapter<String> adapterCountry;
             final List<String> listCountry = new ArrayList<>();
 
             entityListCountry = new CountryDaoImpl().queryCountryName();
@@ -105,11 +102,7 @@ public class StartPageActivity extends ActionBarActivity implements View.OnClick
                 }
             });
 
-
         searchMedicine = (EditText) findViewById(R.id.editTextSearchMedicine);
-
-
-
 
             btAdd = (Button) findViewById(R.id.buttonAdd);
             btAdd.setBackgroundColor(Color.rgb(98,99,155));
@@ -120,21 +113,18 @@ public class StartPageActivity extends ActionBarActivity implements View.OnClick
             btSearch = (Button) findViewById(R.id.button_search_sotrud);
             btSearch.setBackgroundColor(Color.rgb(98,99,155));
 
-            btSearch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(checkInputField())
-                    {
-                        FindAtTheBase();
-                        adapterList = new MedicineAdapter(StartPageActivity.this, medicineEntityArrayList);
-                        listMedicine = (ListView) findViewById(R.id.listViewMedicine);
-                        listMedicine.setAdapter(adapterList);
-                        adapterList.notifyDataSetChanged();
-                    }
-                    else {
-                        searchMedicine.setError(getString(R.string.error_field_required));
-                        searchMedicine.requestFocus();
-                    }
+            btSearch.setOnClickListener(view -> {
+                if(checkInputField())
+                {
+                    FindAtTheBase();
+                    adapterList = new MedicineAdapter(StartPageActivity.this, medicineEntityArrayList);
+                    listMedicine = (ListView) findViewById(R.id.listViewMedicine);
+                    listMedicine.setAdapter(adapterList);
+                    adapterList.notifyDataSetChanged();
+                }
+                else {
+                    searchMedicine.setError(getString(R.string.error_field_required));
+                    searchMedicine.requestFocus();
                 }
             });
 
@@ -156,11 +146,7 @@ public class StartPageActivity extends ActionBarActivity implements View.OnClick
                         .setMessage("Nothing was found.")
                         .setIcon(R.drawable.notfound);
                 builder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        (dialog, id) -> dialog.cancel());
                 builder.setCancelable(true);
                 AlertDialog alert = builder.create();
                 alert.show();

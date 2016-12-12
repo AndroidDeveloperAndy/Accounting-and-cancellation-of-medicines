@@ -2,6 +2,7 @@ package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.CountryDao;
 import com.example.andy.accountingandcancellationofmedicines.database.CountryTable;
@@ -18,7 +19,6 @@ import java.util.List;
 public class CountryDaoImpl implements CountryDao {
 
     private final SQLiteDatabase db;
-    private static final String LOG_TAG = CityDaoImpl.class.getName();
 
     public CountryDaoImpl(){
         db = Singl.getInstance();
@@ -27,7 +27,13 @@ public class CountryDaoImpl implements CountryDao {
     @Override
     public List<CountryEntity> queryCountryName() throws Exception {
         Cursor c = db.query(CountryTable.NameCountryTable, null, null, null, null, null, null);
+        ArrayList<CountryEntity> list = getCountryList(c);
+        c.close();
+        return list;
+    }
 
+    @NonNull
+    private ArrayList<CountryEntity> getCountryList(Cursor c) {
         ArrayList<CountryEntity> list = new ArrayList<>();
 
         while(c.moveToNext()){
@@ -39,7 +45,6 @@ public class CountryDaoImpl implements CountryDao {
 
             list.add(cityEntity);
         }
-        c.close();
         return list;
     }
 }

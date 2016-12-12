@@ -3,6 +3,8 @@ package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.UsersDao;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
@@ -25,6 +27,13 @@ public class UsersDaoImpl implements UsersDao{
     @Override
     public UsersEntity read(String login) {
         Cursor c = db.query(UsersTable.NameUsersTable, null, UsersTable.ColumnUsersTable.LoginUser + " = ?", new String[]{login}, null, null, null);
+        UsersEntity usersEntity = getUsersEntity(c);
+        c.close();
+        return usersEntity;
+    }
+
+    @Nullable
+    private UsersEntity getUsersEntity(Cursor c) {
         UsersEntity usersEntity = null;
 
         if(c.getCount() !=0){
@@ -40,15 +49,17 @@ public class UsersDaoImpl implements UsersDao{
             usersEntity.setPatronymicUser(c.getString(c.getColumnIndex(UsersTable.ColumnUsersTable.PatronymicUser)));
             usersEntity.setTypeUser(c.getString(c.getColumnIndex(UsersTable.ColumnUsersTable.TypeUser)));
         }
-
-        c.close();
-
         return usersEntity;
     }
 
     @Override
     public long addUser(UsersEntity entity) throws Exception {
+        ContentValues newValues = addContentValuesUser(entity);
+        return db.insertOrThrow(UsersTable.NameUsersTable, null,newValues);
+    }
 
+    @NonNull
+    private ContentValues addContentValuesUser(UsersEntity entity) {
         ContentValues newValues = new ContentValues();
         newValues.put(UsersTable.ColumnUsersTable.LoginUser, entity.getLogin());
         newValues.put(UsersTable.ColumnUsersTable.PasswordUser, entity.getPassword());
@@ -56,7 +67,6 @@ public class UsersDaoImpl implements UsersDao{
         newValues.put(UsersTable.ColumnUsersTable.NameUser, entity.getNameUser());
         newValues.put(UsersTable.ColumnUsersTable.PatronymicUser, entity.getPatronymicUser());
         newValues.put(UsersTable.ColumnUsersTable.TypeUser, entity.getTypeUser());
-
-        return db.insertOrThrow(UsersTable.NameUsersTable, null,newValues);
+        return newValues;
     }
 }

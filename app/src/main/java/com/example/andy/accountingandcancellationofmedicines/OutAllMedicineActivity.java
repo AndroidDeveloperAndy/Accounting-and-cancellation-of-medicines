@@ -11,10 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
@@ -46,23 +43,18 @@ public class OutAllMedicineActivity extends AppCompatActivity {
         deleteMedicine = (Button) findViewById(R.id.DeleteButton);
         deleteMedicine.setBackgroundColor(Color.rgb(98,99,155));
 
-        deleteMedicine.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                try {
-
-                    for(WrapperMedicineAdapter o : wrapperMedicineAdapters) {
-                        if (o.isChecked()) {
-                            new MedicineDaoImpl().deleteMedicine(o.getEntity().getId());
-                        }
+        deleteMedicine.setOnClickListener(v -> {
+            try {
+                for(WrapperMedicineAdapter o : wrapperMedicineAdapters) {
+                    if (o.isChecked()) {
+                        new MedicineDaoImpl().deleteMedicine(o.getEntity().getId());
                     }
-
-                    updateUI();
-
-                }catch (Exception e) {
-                    e.printStackTrace();
                 }
+
+                updateUI();
+
+            }catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
@@ -102,9 +94,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * хранит ссылку на представление объекта.
-     */
     private class MedicineHolder extends RecyclerView.ViewHolder{
 
         CheckBox cbMedicine;
@@ -118,20 +107,10 @@ public class OutAllMedicineActivity extends AppCompatActivity {
             super(itemView);
 
             cbMedicine = (CheckBox) itemView.findViewById(R.id.cbMedicine);
-            cbMedicine.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView,
-                                             boolean isChecked) {
-
-                    data.setChecked(isChecked);
-                }});
+            cbMedicine.setOnCheckedChangeListener((buttonView, isChecked) -> data.setChecked(isChecked));
 
             nameMedicine = (TextView) itemView.findViewById(R.id.txNameMedicine);
-            nameMedicine.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(AddMedicineActivity.newInstanceUpdate(OutAllMedicineActivity.this, data.getEntity()));
-                }
-            });
+            nameMedicine.setOnClickListener(view -> startActivity(AddMedicineActivity.newInstanceUpdate(OutAllMedicineActivity.this, data.getEntity())));
             txAmount = (TextView) itemView.findViewById(R.id.txAmount);
             txShelfLife = (TextView) itemView.findViewById(R.id.txShelfLife);
 
@@ -157,18 +136,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
 
         }
 
-        /**
-         * вызывается виджетом RecyclerView , когда ему потребуется новое представление
-         * для отображения элемента. В этом методе мы создаем объект View и упаковываем
-         * его в ViewHolder . RecyclerView пока не ожидает, что представление будет связано
-         * с какими-либо данными. Для получения представления мы заполняем макет из
-         * стандартной библиотеки Android с именем simple_list_item_1.
-         * Этот макет содержит один виджет TextView, оформленный так, чтобы он хорошо
-         * смотрелся в списке.
-         * @param parent
-         * @param viewType
-         * @return
-         */
         @Override
         public MedicineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -179,12 +146,6 @@ public class OutAllMedicineActivity extends AppCompatActivity {
             return new MedicineHolder(view);
         }
 
-        /**
-         * связывает представление View объекта ViewHolder с объектом модели.
-         * @param holder - ViewHolder
-         * @param position - позиция в наборе даныных. Позиция используется для нахождения
-         *                 правильных данных модели, после чего View обновляется в соответствии с этими данными.
-         */
         @Override
         public void onBindViewHolder(MedicineHolder holder, int position) {
 

@@ -34,15 +34,12 @@ public class ShopAdapter extends BaseAdapter {
         lInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    CompoundButton.OnCheckedChangeListener myCheckChangeList = new CompoundButton.OnCheckedChangeListener() {
-        public void onCheckedChanged(CompoundButton buttonView,
-                                     boolean isChecked) {
-            if(isChecked){
+    CompoundButton.OnCheckedChangeListener myCheckChangeList = (buttonView, isChecked) -> {
+        if(isChecked){
 
-            }
-            else{
+        }
+        else{
 
-            }
         }
     };
 

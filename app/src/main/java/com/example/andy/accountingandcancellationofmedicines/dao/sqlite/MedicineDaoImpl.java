@@ -30,10 +30,8 @@ public class MedicineDaoImpl implements MedicineDao {
     public ArrayList<MedicineEntity> queryAllMedicine() throws Exception {
         Cursor c = db.query(NAME_TABLE, null, null, null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
-
         while(c.moveToNext()){
             MedicineEntity medicineEntity = getMedicineEntity(c);
-
             list.add(medicineEntity);
         }
         c.close();
@@ -44,11 +42,9 @@ public class MedicineDaoImpl implements MedicineDao {
     public ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception {
         Cursor c = db.query(NAME_TABLE, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
-
         if(c.moveToFirst()){
             do {
                 MedicineEntity medicineEntity = getMedicineEntity(c);
-
                 list.add(medicineEntity);
             } while (c.moveToNext());
         }

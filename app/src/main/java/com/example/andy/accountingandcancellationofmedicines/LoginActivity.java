@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,27 +23,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.andy.accountingandcancellationofmedicines.dao.UsersDao;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.UsersDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.database.Singl;
 import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public static final int CODE_ADMIN_SUCCESFUL = 1;
     public static final int CODE_CLIENT_SUCCESFUL = 2;
     public static final int CODE_SING_UP_EXEPTION = 2;
-    private static final String LOG = LoginActivity.class.getName();
+
     private UserLoginTask mAuthTask = null;
 
     private AutoCompleteTextView mLoginView;
@@ -76,58 +67,35 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         iv = (ImageView) findViewById(R.id.imageView);
         iv.setImageResource(R.drawable.welcome);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         Button mLoginSignInButton = (Button) findViewById(R.id.sign_in_button);
         mLoginSignInButton.setBackgroundColor(Color.rgb(98,99,155));
-        mLoginSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-
-            }
-        });
+        mLoginSignInButton.setOnClickListener(view -> attemptLogin());
         Button mLoginCheckInButton = (Button) findViewById(R.id.registration);
-        mLoginCheckInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, CheckInClientActivity.class);
-                startActivity(intent);
-            }
+        mLoginCheckInButton.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, CheckInClientActivity.class);
+            startActivity(intent);
         });
         Button mLoginRestorePassButton = (Button) findViewById(R.id.restore_password);
-        mLoginRestorePassButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                builder.setTitle("Restore password.")
-                        .setMessage("New password sent to your e-mail.")
-                        .setIcon(R.drawable.atancher)
-                        .setPositiveButton("I agree",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                        builder.setNegativeButton("I not agree",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                builder.setCancelable(false);
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
+        mLoginRestorePassButton.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+            builder.setTitle("Restore password.")
+                    .setMessage("New password sent to your e-mail.")
+                    .setIcon(R.drawable.atancher)
+                    .setPositiveButton("I agree",
+                            (dialog, id) -> dialog.cancel());
+                    builder.setNegativeButton("I not agree",
+                            (dialog, id) -> dialog.cancel());
+            builder.setCancelable(false);
+            AlertDialog alert = builder.create();
+            alert.show();
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -154,13 +122,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mLoginView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        @TargetApi(Build.VERSION_CODES.M)
-                        public void onClick(View v) {
-                            requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-                        }
-                    });
+                    .setAction(android.R.string.ok, v -> requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS));
         } else {
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
@@ -181,7 +143,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (mAuthTask != null) {
             return;
         }
-
         mLoginView.setError(null);
         mPasswordView.setError(null);
 

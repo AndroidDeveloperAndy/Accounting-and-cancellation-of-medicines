@@ -3,11 +3,8 @@ package com.example.andy.accountingandcancellationofmedicines.utils;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
-import com.example.andy.accountingandcancellationofmedicines.R;
 
 import java.util.Locale;
 

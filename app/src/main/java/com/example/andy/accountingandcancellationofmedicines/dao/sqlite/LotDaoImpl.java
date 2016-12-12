@@ -2,6 +2,7 @@ package com.example.andy.accountingandcancellationofmedicines.dao.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.LotDao;
 import com.example.andy.accountingandcancellationofmedicines.database.LotTable;
@@ -26,6 +27,13 @@ public class LotDaoImpl implements LotDao{
     @Override
     public List<LotEntity> queryLot() throws Exception {
         Cursor c = db.query(LotTable.NameLotTable, null, null, null, null, null, null);
+        ArrayList<LotEntity> list = getLotList(c);
+        c.close();
+        return list;
+    }
+
+    @NonNull
+    private ArrayList<LotEntity> getLotList(Cursor c) {
         ArrayList<LotEntity> list = new ArrayList<>();
 
         while(c.moveToNext()){
@@ -40,7 +48,6 @@ public class LotDaoImpl implements LotDao{
 
             list.add(lotEntity);
         }
-        c.close();
         return list;
     }
 }

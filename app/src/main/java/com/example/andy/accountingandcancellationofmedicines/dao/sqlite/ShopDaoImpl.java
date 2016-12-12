@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class ShopDaoImpl implements ShopDao {
 
     private final SQLiteDatabase db;
-    private static final String LOG_TAG = ShopDaoImpl.class.getName();
 
     public ShopDaoImpl(){
         db = Singl.getInstance();
