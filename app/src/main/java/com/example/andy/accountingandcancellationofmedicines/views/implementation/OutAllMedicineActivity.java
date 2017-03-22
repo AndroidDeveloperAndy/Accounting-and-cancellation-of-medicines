@@ -1,4 +1,4 @@
-package com.example.andy.accountingandcancellationofmedicines;
+package com.example.andy.accountingandcancellationofmedicines.views.implementation;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.andy.accountingandcancellationofmedicines.R;
+import com.example.andy.accountingandcancellationofmedicines.adapter.WrapperMedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 

@@ -1,16 +1,11 @@
-package com.example.andy.accountingandcancellationofmedicines;
+package com.example.andy.accountingandcancellationofmedicines.adapter;
 
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
-
-/**
- * Created by Andy on 11.12.16.
- */
 
 public class WrapperMedicineAdapter {
 
     private final MedicineEntity entity;
     private boolean isChecked;
-
 
     public WrapperMedicineAdapter(MedicineEntity entity) {
         this.entity = entity;

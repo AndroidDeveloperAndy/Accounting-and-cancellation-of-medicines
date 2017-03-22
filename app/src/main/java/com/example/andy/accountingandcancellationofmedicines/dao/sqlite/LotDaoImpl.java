@@ -6,27 +6,23 @@ import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.LotDao;
 import com.example.andy.accountingandcancellationofmedicines.database.LotTable;
-import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+import com.example.andy.accountingandcancellationofmedicines.database.Singleton;
 import com.example.andy.accountingandcancellationofmedicines.entity.LotEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Andy on 28.11.16.
- */
-
 public class LotDaoImpl implements LotDao{
 
-    private final SQLiteDatabase db;
+    private final SQLiteDatabase fDb;
 
     public LotDaoImpl() {
-        db = Singl.getInstance();
+        fDb = Singleton.getInstance();
     }
 
     @Override
     public List<LotEntity> queryLot() throws Exception {
-        Cursor c = db.query(LotTable.NameLotTable, null, null, null, null, null, null);
+        Cursor c = fDb.query(LotTable.NameLotTable, null, null, null, null, null, null);
         ArrayList<LotEntity> list = getLotList(c);
         c.close();
         return list;
@@ -35,7 +31,6 @@ public class LotDaoImpl implements LotDao{
     @NonNull
     private ArrayList<LotEntity> getLotList(Cursor c) {
         ArrayList<LotEntity> list = new ArrayList<>();
-
         while(c.moveToNext()){
             LotEntity lotEntity = new LotEntity();
             lotEntity.setIdLot(c.getInt(c.getColumnIndex(LotTable.ColumnLotTable.IdLot)));

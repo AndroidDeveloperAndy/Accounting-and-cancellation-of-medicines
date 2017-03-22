@@ -1,8 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class CountryEntity {
     private Integer idCountry;
     private String name;
@@ -47,9 +44,7 @@ public class CountryEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CountryEntity that = (CountryEntity) o;
-
         if (idCountry != null ? !idCountry.equals(that.idCountry) : that.idCountry != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (codeCountry != null ? !codeCountry.equals(that.codeCountry) : that.codeCountry != null) return false;

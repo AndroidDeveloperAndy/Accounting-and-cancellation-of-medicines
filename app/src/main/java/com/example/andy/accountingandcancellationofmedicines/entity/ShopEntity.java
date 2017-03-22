@@ -1,8 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class ShopEntity {
     private String nameMedicineAtShop;
     private Integer idShop;
@@ -54,16 +51,13 @@ public class ShopEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ShopEntity that = (ShopEntity) o;
-
         if (nameMedicineAtShop != null ? !nameMedicineAtShop.equals(that.nameMedicineAtShop) : that.nameMedicineAtShop != null)
             return false;
         if (idShop != null ? !idShop.equals(that.idShop) : that.idShop != null) return false;
         if (nameShop != null ? !nameShop.equals(that.nameShop) : that.nameShop != null) return false;
         if (adressShop != null ? !adressShop.equals(that.adressShop) : that.adressShop != null) return false;
         if (priceAtShop != null ? !priceAtShop.equals(that.priceAtShop) : that.priceAtShop != null) return false;
-
         return true;
     }
 

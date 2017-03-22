@@ -1,14 +1,10 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class CityEntity {
     private Integer idCity;
     private String name;
     private Integer postCode;
     private Integer idCountry;
-
 
     public Integer getIdCity() {
         return idCity;
@@ -46,14 +42,11 @@ public class CityEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         CityEntity that = (CityEntity) o;
-
         if (idCity != null ? !idCity.equals(that.idCity) : that.idCity != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (postCode != null ? !postCode.equals(that.postCode) : that.postCode != null) return false;
         if (idCountry != null ? !idCountry.equals(that.idCountry) : that.idCountry != null) return false;
-
         return true;
     }
 

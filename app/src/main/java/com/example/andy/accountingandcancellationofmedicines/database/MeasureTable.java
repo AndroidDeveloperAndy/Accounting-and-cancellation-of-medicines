@@ -1,14 +1,10 @@
 package com.example.andy.accountingandcancellationofmedicines.database;
 
-/**
- * Created by Andy on 26.11.16.
- */
+public class MeasureTable {
 
-public class MeasurTable {
+    public static final String NameMeasureTable = "measur";
 
-    public static final String NameMeasurTable= "measur";
-
-    public static final class ColumnMeasurTable{
+    public static final class ColumnMeasureTable{
         public static final String IdMeasure= "IdMeasure";
         public static final String Name= "Name";
     }

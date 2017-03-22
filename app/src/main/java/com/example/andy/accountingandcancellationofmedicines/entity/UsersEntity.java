@@ -1,8 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class UsersEntity {
     private Integer idUser;
     private String surnameUser;
@@ -72,9 +69,7 @@ public class UsersEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UsersEntity that = (UsersEntity) o;
-
         if (idUser != null ? !idUser.equals(that.idUser) : that.idUser != null) return false;
         if (surnameUser != null ? !surnameUser.equals(that.surnameUser) : that.surnameUser != null) return false;
         if (nameUser != null ? !nameUser.equals(that.nameUser) : that.nameUser != null) return false;

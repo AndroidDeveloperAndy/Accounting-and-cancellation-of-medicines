@@ -1,12 +1,9 @@
-package com.example.andy.accountingandcancellationofmedicines;
+package com.example.andy.accountingandcancellationofmedicines.database;
 
 import android.content.Context;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-/**
- * Created by Andy on 15.11.16.
- */
 public class DatabaseHelper extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "new_upgrade_2-3.db";

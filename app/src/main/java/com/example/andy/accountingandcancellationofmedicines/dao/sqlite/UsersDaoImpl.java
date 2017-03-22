@@ -7,26 +7,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.UsersDao;
-import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+import com.example.andy.accountingandcancellationofmedicines.database.Singleton;
 import com.example.andy.accountingandcancellationofmedicines.database.UsersTable;
-import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
-
-/**
- * Created by Andy on 28.11.16.
- */
 
 public class UsersDaoImpl implements UsersDao{
 
-    private final SQLiteDatabase db;
+    private final SQLiteDatabase fDb;
 
     public UsersDaoImpl(){
-        db = Singl.getInstance();
+        fDb = Singleton.getInstance();
     }
 
     @Override
     public UsersEntity read(String login) {
-        Cursor c = db.query(UsersTable.NameUsersTable, null, UsersTable.ColumnUsersTable.LoginUser + " = ?", new String[]{login}, null, null, null);
+        Cursor c = fDb.query(UsersTable.NameUsersTable, null, UsersTable.ColumnUsersTable.LoginUser + " = ?", new String[]{login}, null, null, null);
         UsersEntity usersEntity = getUsersEntity(c);
         c.close();
         return usersEntity;
@@ -35,12 +30,9 @@ public class UsersDaoImpl implements UsersDao{
     @Nullable
     private UsersEntity getUsersEntity(Cursor c) {
         UsersEntity usersEntity = null;
-
         if(c.getCount() !=0){
             c.moveToFirst();
-
             usersEntity = new UsersEntity();
-
             usersEntity.setIdUser(c.getInt(c.getColumnIndex(UsersTable.ColumnUsersTable.IdUser)));
             usersEntity.setLogin(c.getString(c.getColumnIndex(UsersTable.ColumnUsersTable.LoginUser)));
             usersEntity.setPassword(c.getString(c.getColumnIndex(UsersTable.ColumnUsersTable.PasswordUser)));
@@ -55,7 +47,7 @@ public class UsersDaoImpl implements UsersDao{
     @Override
     public long addUser(UsersEntity entity) throws Exception {
         ContentValues newValues = addContentValuesUser(entity);
-        return db.insertOrThrow(UsersTable.NameUsersTable, null,newValues);
+        return fDb.insertOrThrow(UsersTable.NameUsersTable, null,newValues);
     }
 
     @NonNull

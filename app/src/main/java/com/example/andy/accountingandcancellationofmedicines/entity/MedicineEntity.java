@@ -2,9 +2,6 @@ package com.example.andy.accountingandcancellationofmedicines.entity;
 
 import java.io.Serializable;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class MedicineEntity implements Serializable {
     private Integer id;
     private String nameMedicine;
@@ -16,9 +13,7 @@ public class MedicineEntity implements Serializable {
     private String shelfLife;
     private Integer idMeasure;
 
-    public MedicineEntity() {
-    }
-
+    public MedicineEntity(){}
     public MedicineEntity(Integer id, String nameMedicine, Integer lotNumber, String note, Integer amount, String arrivalDate, String dateOfManufacture, String shelfLife,Integer idMeasure) {
         this.id = id;
         this.nameMedicine = nameMedicine;
@@ -107,9 +102,7 @@ public class MedicineEntity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         MedicineEntity that = (MedicineEntity) o;
-
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (nameMedicine != null ? !nameMedicine.equals(that.nameMedicine) : that.nameMedicine != null) return false;
         if (lotNumber != null ? !lotNumber.equals(that.lotNumber) : that.lotNumber != null) return false;
@@ -120,7 +113,6 @@ public class MedicineEntity implements Serializable {
             return false;
         if (shelfLife != null ? !shelfLife.equals(that.shelfLife) : that.shelfLife != null) return false;
         if (idMeasure != null ? !idMeasure.equals(that.idMeasure) : that.idMeasure != null) return false;
-
         return true;
     }
 

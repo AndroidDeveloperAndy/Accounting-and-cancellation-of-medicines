@@ -1,9 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.database;
 
-/**
- * Created by Andy on 26.11.16.
- */
-
 public class CountryTable {
 
     public static final String NameCountryTable= "country";

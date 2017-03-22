@@ -8,38 +8,35 @@ import android.util.Log;
 
 import java.util.Locale;
 
-/**
- * Created by Andy on 03.12.16.
- */
-
 public class MyApllication extends Application{
 
-    private SharedPreferences preferences;
-    private Locale locale;
-    private String lang;
+    private SharedPreferences mPreferences;
+    private Locale mLocale;
+    private String mLang;
 
     @Override
     public void onCreate() {
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        lang = preferences.getString("lang", "default");
-        if (lang.equals("default")) {lang=getResources().getConfiguration().locale.getCountry();}
-        locale = new Locale(lang);
-        Locale.setDefault(locale);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mLang = mPreferences.getString("lang", "default");
+        if (mLang.equals("default")) {
+            mLang =getResources().getConfiguration().locale.getCountry();}
+        mLocale = new Locale(mLang);
+        Locale.setDefault(mLocale);
         Configuration config = new Configuration();
-        config.locale = locale;
+        config.locale = mLocale;
         getBaseContext().getResources().updateConfiguration(config, null);
-        Log.d("LOL","locale"+locale);
+        Log.d("LOL","mLocale"+ mLocale);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
-        locale = new Locale(lang);
-        Locale.setDefault(locale);
+        mLocale = new Locale(mLang);
+        Locale.setDefault(mLocale);
         Configuration config = new Configuration();
-        config.locale = locale;
+        config.locale = mLocale;
         getBaseContext().getResources().updateConfiguration(config, null);
-        Log.d("LOLU","locale"+locale);
+        Log.d("LOLU","mLocale"+ mLocale);
     }
 }

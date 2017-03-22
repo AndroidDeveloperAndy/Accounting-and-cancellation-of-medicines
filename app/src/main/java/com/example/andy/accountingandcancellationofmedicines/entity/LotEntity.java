@@ -1,8 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class LotEntity {
     private Integer lNumber;
     private Integer idLot;
@@ -72,9 +69,7 @@ public class LotEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         LotEntity lotEntity = (LotEntity) o;
-
         if (lNumber != null ? !lNumber.equals(lotEntity.lNumber) : lotEntity.lNumber != null) return false;
         if (idLot != null ? !idLot.equals(lotEntity.idLot) : lotEntity.idLot != null) return false;
         if (nameCountry != null ? !nameCountry.equals(lotEntity.nameCountry) : lotEntity.nameCountry != null)

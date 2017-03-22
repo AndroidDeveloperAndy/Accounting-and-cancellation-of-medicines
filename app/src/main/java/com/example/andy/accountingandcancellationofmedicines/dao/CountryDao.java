@@ -5,12 +5,6 @@ import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntit
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Andy on 27.11.16.
- */
-
 public interface CountryDao extends Serializable {
-
-    public List<CountryEntity> queryCountryName() throws Exception;
-
+    List<CountryEntity> queryCountryName() throws Exception;
 }

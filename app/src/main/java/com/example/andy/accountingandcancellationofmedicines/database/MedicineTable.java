@@ -1,9 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.database;
 
-/**
- * Created by Andy on 26.11.16.
- */
-
 public final class MedicineTable {
 
     public static final String NameMedicineTable= "medicine";

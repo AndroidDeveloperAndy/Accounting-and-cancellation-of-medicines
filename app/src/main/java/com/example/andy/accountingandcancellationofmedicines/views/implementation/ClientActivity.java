@@ -1,13 +1,10 @@
-package com.example.andy.accountingandcancellationofmedicines;
+package com.example.andy.accountingandcancellationofmedicines.views.implementation;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CityDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.CountryDaoImpl;
@@ -31,25 +30,33 @@ import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.Medicine
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
+import com.example.andy.accountingandcancellationofmedicines.settings.Preferences;
+
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ClientActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+@EActivity(R.layout.activity_client)
+public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String TAG = ClientActivity.class.getName();
-    Spinner districtClient,countryClient;
-    List<CountryEntity> entityListCountryClient;
-    List<CityEntity> entityListCityClient;
-    Button order,search;
-    EditText txFindText;
-    ListView listMedicine;
+    @ViewById(R.id.client_district)     Spinner mDistrictClient;
+    @ViewById(R.id.client_city)         Spinner mCountryClient;
+    @ViewById(R.id.OrderButton)         Button mOrder;
+    @ViewById(R.id.SearchButton)        Button mSearch;
+    @ViewById(R.id.find_client_medicine)EditText mTxFindText;
+    @ViewById(R.id.listMedicineClient)  ListView mListMedicine;
+    @ViewById(R.id.drawer_layout)       DrawerLayout mDrawer;
+    @ViewById(R.id.toolbar)             Toolbar mToolbar;
+    @ViewById(R.id.nav_view)             NavigationView mNavigationView;
 
-    MedicineAdapter adapterList;
-    ArrayList<MedicineEntity> medicineEntityArrayList;
-
-    SharedPreferences sPref;
+    private List<CountryEntity> mEntityListCountryClient;
+    private List<CityEntity> mEntityListCityClient;
+    private MedicineAdapter mAdapterList;
+    private ArrayList<MedicineEntity> mMedicineEntityArrayList;
+    private SharedPreferences mPref;
     final String SAVED_TEXT = "saved_text";
 
     @Override
@@ -57,64 +64,41 @@ public class ClientActivity extends AppCompatActivity
         try{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        setSupportActionBar(mToolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        districtClient = (Spinner) findViewById(R.id.client_district);
-        districtClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mDistrictClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-
-            }
-
+                                       int position, long id) {}
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-
-        ArrayAdapter<String> adapterCountry = null;
         final List<String> listCountry = new ArrayList<>();
-
-
-        entityListCountryClient = new CountryDaoImpl().queryCountryName();
-
-        for (CountryEntity o: entityListCountryClient)
-            listCountry.add(o.getName());
-        adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
-
+        listCountry.addAll(new CountryDaoImpl().queryCountryName().stream().map(CountryEntity::getName).collect(Collectors.toList()));
+        ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
         adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countryClient = (Spinner) findViewById(R.id.client_city);
-        countryClient.setAdapter(adapterCountry);
-        countryClient.setPrompt("Страна");
-        countryClient.setSelection(1);
-        countryClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mCountryClient.setAdapter(adapterCountry);
+        mCountryClient.setPrompt("Страна");
+        mCountryClient.setSelection(1);
+        mCountryClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 try {
                     ArrayAdapter<String> adapterCity;
                     List<String> listCity = new ArrayList<>();
-
-                    entityListCityClient = new CityDaoImpl().queryCitys(entityListCountryClient.get(position).getIdCountry());
-                    for (CityEntity o : entityListCityClient)
-                        listCity.add(o.getName());
+                    mEntityListCityClient = new CityDaoImpl().queryCitys(mEntityListCountryClient.get(position).getIdCountry());
+                    listCity.addAll(new CityDaoImpl().queryCitys(mEntityListCountryClient.get(position).getIdCountry()).stream().map(CityEntity::getName).collect(Collectors.toList()));
                     adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
 
                     adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                    districtClient.setAdapter(adapterCity);
+                    mDistrictClient.setAdapter(adapterCity);
 
-                    districtClient.setSelection(1);
+                    mDistrictClient.setSelection(1);
 
                 } catch (Throwable e) {
                     e.printStackTrace();
@@ -129,50 +113,48 @@ public class ClientActivity extends AppCompatActivity
         });
     } catch (Exception e) {
         e.printStackTrace();
-        Log.e(TAG, "error ", e);
-
     }
-    txFindText = (EditText) findViewById(R.id.find_client_medicine);
-    order = (Button)findViewById(R.id.OrderButton);
-    order.setBackgroundColor(Color.rgb(98,99,155));
-        order.setOnClickListener(view -> {
+    mTxFindText = (EditText) findViewById(R.id.find_client_medicine);
+    mOrder = (Button)findViewById(R.id.OrderButton);
+    mOrder.setBackgroundColor(Color.rgb(98,99,155));
+        mOrder.setOnClickListener(view -> {
             saveText();
             loadText();
         });
-    search = (Button)findViewById(R.id.SearchButton);
-    search.setBackgroundColor(Color.rgb(98,99,155));
-    search.setOnClickListener(view -> {
+    mSearch = (Button)findViewById(R.id.SearchButton);
+    mSearch.setBackgroundColor(Color.rgb(98,99,155));
+    mSearch.setOnClickListener(view -> {
         if(checkInputField())
         {
             FindAtTheBase();
-            adapterList = new MedicineAdapter(ClientActivity.this, medicineEntityArrayList);
-            listMedicine = (ListView) findViewById(R.id.listMedicineClient);
-            listMedicine.setAdapter(adapterList);
-            adapterList.notifyDataSetChanged();
+            mAdapterList = new MedicineAdapter(ClientActivity.this, mMedicineEntityArrayList);
+            mListMedicine = (ListView) findViewById(R.id.listMedicineClient);
+            mListMedicine.setAdapter(mAdapterList);
+            mAdapterList.notifyDataSetChanged();
         }
         else {
-            txFindText.setError(getString(R.string.error_field_required));
-            txFindText.requestFocus();
+            mTxFindText.setError(getString(R.string.error_field_required));
+            mTxFindText.requestFocus();
         }
     });
 
 }
     void saveText() {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(SAVED_TEXT, listMedicine.getCheckedItemPositions().toString());
+        mPref = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor ed = mPref.edit();
+        ed.putString(SAVED_TEXT, mListMedicine.getCheckedItemPositions().toString());
         ed.commit();
         Toast.makeText(this, "The medicine is placed in the cart.", Toast.LENGTH_SHORT).show();
     }
 
     void loadText() {
-        sPref = getPreferences(MODE_PRIVATE);
+        mPref = getPreferences(MODE_PRIVATE);
         Toast.makeText(this, "In the cart.", Toast.LENGTH_SHORT).show();
     }
     private void FindAtTheBase() {
         try {
-            medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(txFindText.getText().toString());
-            if(medicineEntityArrayList.size() == 0)
+            mMedicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(mTxFindText.getText().toString());
+            if(mMedicineEntityArrayList.size() == 0)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ClientActivity.this);
                 builder.setTitle("Repeat the find.")
@@ -190,7 +172,7 @@ public class ClientActivity extends AppCompatActivity
     }
 
     private boolean checkInputField() {
-        return txFindText.getText().toString().length() > 0;
+        return mTxFindText.getText().toString().length() > 0;
     }
 
 

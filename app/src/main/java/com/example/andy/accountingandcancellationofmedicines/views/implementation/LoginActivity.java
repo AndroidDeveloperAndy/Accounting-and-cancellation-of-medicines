@@ -1,27 +1,23 @@
-package com.example.andy.accountingandcancellationofmedicines;
+package com.example.andy.accountingandcancellationofmedicines.views.implementation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,16 +29,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.UsersDaoImpl;
-import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+import com.example.andy.accountingandcancellationofmedicines.database.DatabaseHelper;
+import com.example.andy.accountingandcancellationofmedicines.database.Singleton;
 import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
+import com.example.andy.accountingandcancellationofmedicines.settings.Preferences;
+import com.example.andy.accountingandcancellationofmedicines.views.interfaces.LoginActivityImpl;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+@EActivity(R.layout.activity_login)
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>,LoginActivityImpl {
 
     private static final int REQUEST_READ_CONTACTS = 0;
     public static final int CODE_ADMIN_SUCCESFUL = 1;
@@ -51,22 +56,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private UserLoginTask mAuthTask = null;
 
-    private AutoCompleteTextView mLoginView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
-    private ImageView iv;
+    @ViewById(R.id.login)            AutoCompleteTextView mLoginView;
+    @ViewById(R.id.password)         EditText mPasswordView;
+    @ViewById(R.id.login_progress)   View mProgressView;
+    @ViewById(R.id.login_form)       View mLoginFormView;
+    @ViewById(R.id.imageView)        ImageView iv;
+    @ViewById(R.id.sign_in_button)   Button mLoginSignInButton;
+    @ViewById(R.id.registration)     Button mLoginCheckInButton;
+    @ViewById(R.id.restore_password) Button mLoginRestorePassButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        Singl.getInstance(getApplicationContext());
-        mLoginView = (AutoCompleteTextView) findViewById(R.id.login);
+    @AfterViews
+    public void initPage(){
+        Singleton.getInstance(this);
         populateAutoComplete();
-        iv = (ImageView) findViewById(R.id.imageView);
-        iv.setImageResource(R.drawable.welcome);
-        mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == R.id.login || id == EditorInfo.IME_NULL) {
                 attemptLogin();
@@ -74,42 +76,34 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             return false;
         });
-
-        Button mLoginSignInButton = (Button) findViewById(R.id.sign_in_button);
-        mLoginSignInButton.setBackgroundColor(Color.rgb(98,99,155));
         mLoginSignInButton.setOnClickListener(view -> attemptLogin());
-        Button mLoginCheckInButton = (Button) findViewById(R.id.registration);
-        mLoginCheckInButton.setOnClickListener(view -> {
-            Intent intent = new Intent(LoginActivity.this, CheckInClientActivity.class);
-            startActivity(intent);
-        });
-        Button mLoginRestorePassButton = (Button) findViewById(R.id.restore_password);
-        mLoginRestorePassButton.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-            builder.setTitle("Restore password.")
-                    .setMessage("New password sent to your e-mail.")
-                    .setIcon(R.drawable.atancher)
-                    .setPositiveButton("I agree",
-                            (dialog, id) -> dialog.cancel());
-                    builder.setNegativeButton("I not agree",
-                            (dialog, id) -> dialog.cancel());
-            builder.setCancelable(false);
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
-
-
-        DatabaseHelper database = new DatabaseHelper(getApplicationContext());
-        SQLiteDatabase data = database.getWritableDatabase();
-
+        mLoginCheckInButton.setOnClickListener(view -> addClientPage());
+        mLoginRestorePassButton.setOnClickListener(view -> restoreDialog());
+        new DatabaseHelper(this).getWritableDatabase();
     }
+
+    @Override
+    public void addClientPage(){
+        startActivity(new Intent(LoginActivity.this, CheckInClientActivity.class));
+    }
+
+    @Override
+    public void restoreDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+        builder.setTitle("Restore password.")
+                .setMessage("New password sent to your e-mail.")
+                .setIcon(R.drawable.atancher)
+                .setPositiveButton("I agree", (dialog, id) -> dialog.cancel())
+                .setNegativeButton("I not agree", (dialog, id) -> dialog.cancel())
+                .setCancelable(false);
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
-
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -130,8 +124,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 populateAutoComplete();
@@ -139,25 +132,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void attemptLogin() {
+    @Override
+    public void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
         mLoginView.setError(null);
         mPasswordView.setError(null);
-
         String login = mLoginView.getText().toString();
         String password = mPasswordView.getText().toString();
-
         boolean cancel = false;
         View focusView = null;
-
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
-
         if (TextUtils.isEmpty(login)) {
             mLoginView.setError(getString(R.string.error_field_required));
             focusView = mLoginView;
@@ -167,7 +157,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mLoginView;
             cancel = true;
         }
-
         if (cancel) {
             focusView.requestFocus();
         } else {
@@ -187,30 +176,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+                show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            }
+        });
+        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(
+                show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     @Override
@@ -233,21 +215,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             logins.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addLoginsToAutoComplete(logins);
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {}
 
     private void addLoginsToAutoComplete(List<String> LoginsCollection) {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, LoginsCollection);
-
-        mLoginView.setAdapter(adapter);
+        mLoginView.setAdapter(new ArrayAdapter<>(LoginActivity.this, android.R.layout.simple_dropdown_item_1line, LoginsCollection));
     }
 
 
@@ -256,16 +231,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
-
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
 
-    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
-
+    private class UserLoginTask extends AsyncTask<Void, Void, Integer> {
         private final String mLogin;
         private final String mPassword;
-        UsersDaoImpl mUserDao;
+        private UsersDaoImpl mUserDao;
 
         UserLoginTask(String login, String password) {
             mLogin = login;
@@ -275,27 +248,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Integer doInBackground(Void... params) {
-
             try {
                 Thread.sleep(2000);
-
             int resultCode = 0;
             UsersEntity entity = mUserDao.read(mLogin);
-            boolean result = entity != null &&
-                    entity.getLogin().equals(mLogin) &&
-                    entity.getPassword().equals(mPassword);
-            if(result){
+            if(entity != null && entity.getLogin().equals(mLogin) && entity.getPassword().equals(mPassword)){
             switch (entity.getTypeUser())
             {
-                case "Sotrud": {
-                    resultCode = CODE_ADMIN_SUCCESFUL;
-                }
+                case "Sotrud": {resultCode = CODE_ADMIN_SUCCESFUL;}
                 break;
-                case "Client": {
-                    resultCode = CODE_CLIENT_SUCCESFUL;
-                }
+                case "Client": {resultCode = CODE_CLIENT_SUCCESFUL;}
                 break;
-            }
+                }
             }
             return resultCode;
             } catch (InterruptedException e) {
@@ -341,7 +305,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int id = item.getItemId();
         if(id == R.id.action_settings){
             startActivity(new Intent(this, Preferences.class));
-
         }
         return super.onOptionsItemSelected(item);
     }

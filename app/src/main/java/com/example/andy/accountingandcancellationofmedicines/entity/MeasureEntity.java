@@ -1,9 +1,6 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
-public class MeasurEntity {
+public class MeasureEntity {
     private Integer idMeasure;
     private String name;
 
@@ -27,9 +24,7 @@ public class MeasurEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        MeasurEntity that = (MeasurEntity) o;
-
+        MeasureEntity that = (MeasureEntity) o;
         if (idMeasure != null ? !idMeasure.equals(that.idMeasure) : that.idMeasure != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 

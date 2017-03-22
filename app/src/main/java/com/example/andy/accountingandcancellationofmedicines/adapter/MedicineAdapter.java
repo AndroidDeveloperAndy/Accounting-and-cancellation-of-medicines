@@ -8,55 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Andy on 29.11.16.
- */
 
 public class MedicineAdapter extends BaseAdapter {
 
-    List<MedicineEntity> entityMedicine;
-    LayoutInflater lInflater;
-
-    private Activity activity;
+    private List<MedicineEntity> mMedicineEntities;
+    private LayoutInflater mInflater;
+    private Activity mActivity;
 
     public MedicineAdapter(Activity activity, List<MedicineEntity> entityMedicine) {
-
-        this.activity = activity;
-        this.entityMedicine = entityMedicine;
-        lInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mActivity = activity;
+        this.mMedicineEntities = entityMedicine;
+        this.mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
-
-    ArrayList<MedicineEntity> getBox() {
-        ArrayList<MedicineEntity> box = new ArrayList<>();
-        for (MedicineEntity p : entityMedicine) {
-            if (true)
-                box.add(p);
-        }
-        return box;
-    }
-
-    CompoundButton.OnCheckedChangeListener myCheckChangeList = (buttonView, isChecked) -> {
-            if(isChecked){
-
-        }
-        else{
-
-            }
-    };
 
     @Override
     public int getCount() {
-        return ((null != entityMedicine) ? entityMedicine.size() : 0);
+        return ((null != mMedicineEntities) ? mMedicineEntities.size() : 0);
     }
 
     @Override
@@ -66,38 +39,28 @@ public class MedicineAdapter extends BaseAdapter {
 
     @Override
     public MedicineEntity getItem(int position) {
-        return ((null != entityMedicine) ? entityMedicine.get(position) : null);
+        return ((null != mMedicineEntities) ? mMedicineEntities.get(position) : null);
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView,ViewGroup parent) {
         View view = convertView;
-
         if (null == view) {
-            view = lInflater.inflate(R.layout.medicine_item_list, parent, false);
+            view = mInflater.inflate(R.layout.medicine_item_list, parent, false);
         }
-
-        MedicineEntity data = entityMedicine.get(position);
-
+        MedicineEntity data = mMedicineEntities.get(position);
         if (null != data) {
-
             CheckBox cbMedicine = (CheckBox) view.findViewById(R.id.cbMedicine);
-            cbMedicine.setOnCheckedChangeListener(myCheckChangeList);
             cbMedicine.setTag(position);
             cbMedicine.setChecked(false);
-
             TextView nameMedicine = (TextView) view.findViewById(R.id.txNameMedicine);
             nameMedicine.setText(data.getNameMedicine());
-
             TextView txAmount = (TextView) view.findViewById(R.id.txAmount);
             txAmount.setText( String.valueOf( data.getAmount() ) );
-
             TextView txShelfLife = (TextView) view.findViewById(R.id.txShelfLife);
             txShelfLife.setText(data.getShelfLife());
-
         }
-
         return view;
     }
 

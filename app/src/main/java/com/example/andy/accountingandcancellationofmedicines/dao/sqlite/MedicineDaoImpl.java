@@ -7,28 +7,22 @@ import android.support.annotation.NonNull;
 
 import com.example.andy.accountingandcancellationofmedicines.dao.MedicineDao;
 import com.example.andy.accountingandcancellationofmedicines.database.MedicineTable;
-import com.example.andy.accountingandcancellationofmedicines.database.Singl;
+import com.example.andy.accountingandcancellationofmedicines.database.Singleton;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 
 import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by Andy on 28.11.16.
- */
 
 public class MedicineDaoImpl implements MedicineDao {
 
-    private static final String NAME_TABLE = MedicineTable.NameMedicineTable;
-    private final SQLiteDatabase db;
+    private final SQLiteDatabase fDb;
 
     public MedicineDaoImpl(){
-        db = Singl.getInstance();
+        fDb = Singleton.getInstance();
     }
 
     @Override
     public ArrayList<MedicineEntity> queryAllMedicine() throws Exception {
-        Cursor c = db.query(NAME_TABLE, null, null, null, null, null, null);
+        Cursor c = fDb.query(MedicineTable.NameMedicineTable, null, null, null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
         while(c.moveToNext()){
             MedicineEntity medicineEntity = getMedicineEntity(c);
@@ -40,7 +34,7 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public ArrayList<MedicineEntity> findByNameMedicine(String name) throws Exception {
-        Cursor c = db.query(NAME_TABLE, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
+        Cursor c = fDb.query(MedicineTable.NameMedicineTable, null, MedicineTable.ColumnMedicineTable.NameMedicine + " LIKE '%"+ name +"%'", null, null, null, null);
         ArrayList<MedicineEntity> list = new ArrayList<>();
         if(c.moveToFirst()){
             do {
@@ -70,9 +64,7 @@ public class MedicineDaoImpl implements MedicineDao {
     @Override
     public long addMedicine(MedicineEntity entity) throws Exception {
         ContentValues newValues = getContentValues(entity);
-
-
-        return db.insertOrThrow(NAME_TABLE, null,newValues);
+        return fDb.insertOrThrow(MedicineTable.NameMedicineTable, null,newValues);
     }
 
     @NonNull
@@ -91,14 +83,13 @@ public class MedicineDaoImpl implements MedicineDao {
 
     @Override
     public void update(MedicineEntity entity){
-
-        db.update(NAME_TABLE, getContentValues(entity),
+        fDb.update(MedicineTable.NameMedicineTable, getContentValues(entity),
                 MedicineTable.ColumnMedicineTable.ID + "= ?" ,
                 new String[]{String.valueOf(entity.getId())});
     }
 
     @Override
     public int deleteMedicine(long id) {
-        return db.delete(NAME_TABLE, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
+        return fDb.delete(MedicineTable.NameMedicineTable, MedicineTable.ColumnMedicineTable.ID + "= ?" , new String[]{String.valueOf(id)});
     }
 }

@@ -1,8 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.entity;
 
-/**
- * Created by Andy on 27.11.16.
- */
 public class SqliteSequenceEntity {
     private String name;
     private String seq;
@@ -27,12 +24,9 @@ public class SqliteSequenceEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         SqliteSequenceEntity that = (SqliteSequenceEntity) o;
-
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (seq != null ? !seq.equals(that.seq) : that.seq != null) return false;
-
         return true;
     }
 
