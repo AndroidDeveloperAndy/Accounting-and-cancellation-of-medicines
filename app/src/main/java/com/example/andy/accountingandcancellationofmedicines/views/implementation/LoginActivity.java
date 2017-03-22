@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @ViewById(R.id.restore_password) Button mLoginRestorePassButton;
 
     @AfterViews
-    public void initPage(){
+    public void initLA(){
         Singleton.getInstance(this);
         populateAutoComplete();
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {

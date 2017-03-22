@@ -9,13 +9,14 @@ import android.widget.Toast;
 import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.UsersDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
+import com.example.andy.accountingandcancellationofmedicines.views.interfaces.CheckInClientImpl;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_check_in_client)
-public class CheckInClientActivity extends AppCompatActivity {
+public class CheckInClientActivity extends AppCompatActivity implements CheckInClientImpl{
 
     @ViewById(R.id.check_in_button_form) Button mButtonAdd;
     @ViewById(R.id.login_checkIN) EditText mTxLogin;
@@ -29,14 +30,16 @@ public class CheckInClientActivity extends AppCompatActivity {
         mButtonAdd.setOnClickListener(view -> addUser());
     }
 
-    void addUser() {
+    @Override
+    public void addUser() {
         if (checkInputField())
             addClientToBase();
         Toast.makeText(this, getResources().getString(R.string.user_add), Toast.LENGTH_LONG);
         CheckInClientActivity.this.startActivity(new Intent(CheckInClientActivity.this, LoginActivity.class));
     }
 
-    private void addClientToBase() {
+    @Override
+    public void addClientToBase() {
         try {
             UsersEntity entity = new UsersEntity();
             entity.setLogin(mTxLogin.getText().toString());
@@ -51,7 +54,8 @@ public class CheckInClientActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkInputField() {
+    @Override
+    public boolean checkInputField() {
         return mTxLogin.getText().toString().length() > 0 &&
                 mTxPass.getText().toString().length() > 0 &&
                 mTxSurname.getText().toString().length() > 0 &&
