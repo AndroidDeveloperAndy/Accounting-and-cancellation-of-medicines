@@ -38,7 +38,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @EActivity(R.layout.activity_client)
 public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ClientActivityImpl {
@@ -54,6 +53,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     @ViewById(R.id.nav_view)            NavigationView mNavigationView;
 
     private List<CityEntity> mEntityListCityClient;
+    private List<CountryEntity> mEntityListCountry;
     final String SAVED_TEXT = "saved_text";
 
     @AfterViews
@@ -109,7 +109,9 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         final List<String> listCountry = new ArrayList<>();
-        listCountry.addAll(new CountryDaoImpl().queryCountryName().stream().map(CountryEntity::getName).collect(Collectors.toList()));
+            mEntityListCountry = new CountryDaoImpl().queryCountryName();
+            for (CountryEntity o: mEntityListCountry)
+                listCountry.add(o.getName());
         ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
         adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountryClient.setAdapter(adapterCountry);
@@ -120,11 +122,11 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 try {
-                    ArrayAdapter<String> adapterCity;
                     List<String> listCity = new ArrayList<>();
-                    mEntityListCityClient = new CityDaoImpl().queryCitys(mEntityListCityClient.get(position).getIdCountry());
-                    listCity.addAll(mEntityListCityClient.stream().map(CityEntity::getName).collect(Collectors.toList()));
-                    adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
+                    mEntityListCityClient = new CityDaoImpl().queryCitys(mEntityListCountry.get(position).getIdCountry());
+                    for (CityEntity o : mEntityListCityClient)
+                        listCity.add(o.getName());
+                    ArrayAdapter<String> adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
                     adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mDistrictClient.setAdapter(adapterCity);
                     mDistrictClient.setSelection(1);

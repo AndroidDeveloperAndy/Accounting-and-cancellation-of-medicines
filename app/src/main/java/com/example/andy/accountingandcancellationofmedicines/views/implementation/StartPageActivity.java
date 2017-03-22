@@ -27,7 +27,6 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @EActivity(R.layout.activity_start_page)
 public class StartPageActivity extends AppCompatActivity implements View.OnClickListener,StartPageImpl {
@@ -40,7 +39,8 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
     @ViewById(R.id.buttonOut)               Button mBtnOut;
     @ViewById(R.id.button_search_sotrud)    Button mBtnSearch;
 
-    private List<CityEntity> entityList;
+    private List<CityEntity> mEntityList;
+    private List<CountryEntity> mEntityListCountry;
 
     @AfterViews
     public void initSPA(){
@@ -91,7 +91,9 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         final List<String> listCountry = new ArrayList<>();
-        listCountry.addAll(new CountryDaoImpl().queryCountryName().stream().map(CountryEntity::getName).collect(Collectors.toList()));
+        mEntityListCountry = new CountryDaoImpl().queryCountryName();
+        for (CountryEntity o: mEntityListCountry)
+                listCountry.add(o.getName());
         ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
         adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mCountry.setAdapter(adapterCountry);
@@ -102,8 +104,9 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
                                        int position, long id) {
                 try {
                     List<String> listCity = new ArrayList<>();
-                    entityList = new CityDaoImpl().queryCitys(entityList.get(position).getIdCountry());
-                    listCity.addAll(entityList.stream().map(CityEntity::getName).collect(Collectors.toList()));
+                    mEntityList = new CityDaoImpl().queryCitys(mEntityListCountry.get(position).getIdCountry());
+                    for (CityEntity o : mEntityList)
+                        listCity.add(o.getName());
                     ArrayAdapter<String> adapterCity = new ArrayAdapter<>(StartPageActivity.this, android.R.layout.simple_spinner_item, listCity);
                     adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mDistrict.setAdapter(adapterCity);

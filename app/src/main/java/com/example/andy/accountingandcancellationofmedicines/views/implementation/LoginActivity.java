@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     public void addClientPage(){
-        startActivity(new Intent(LoginActivity.this, CheckInClientActivity.class));
+        startActivity(new Intent(LoginActivity.this, CheckInClientActivity_.class));
     }
 
     @Override
@@ -273,13 +273,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
             switch (success) {
                 case CODE_ADMIN_SUCCESFUL:{
-                    Intent intent = new Intent(LoginActivity.this, StartPageActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(LoginActivity.this, StartPageActivity_.class));
                     break;
                 }
                 case CODE_CLIENT_SUCCESFUL:{
-                    Intent intent = new Intent(LoginActivity.this, ClientActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(LoginActivity.this, ClientActivity_.class));
                     break;
                 } default:{
                     mPasswordView.setError(getString(R.string.error));
