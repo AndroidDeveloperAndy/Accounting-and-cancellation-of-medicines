@@ -1,7 +1,8 @@
 package com.example.andy.accountingandcancellationofmedicines.views.interfaces;
 
+import android.view.View;
+
 public interface LoginActivityImpl {
-    void addClientPage();
-    void restoreDialog();
-    void attemptLogin();
+    void addClientPage(View view);
+    void checkLogin(View view);
 }

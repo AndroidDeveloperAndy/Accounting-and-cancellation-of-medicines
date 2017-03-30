@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/drawer_layout"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@mipmap/back_login"
+    tools:context="com.example.andy.accountingandcancellationofmedicines.views.implementation.AdminActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTextSearchMedicine"
+            style="@style/Widget.AppCompat.EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:hint="@string/enter_name_tablets"
+            android:textColor="@color/light_gray"
+            android:textColorHint="@color/light_gray"
+            android:textStyle="bold|italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/spinnerCountry"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <org.angmarch.views.NiceSpinner
+                android:id="@+id/spinnerDistrict"
+                android:layout_width="124dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/button_search_sotrud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/selector_xml_btn_yellow"
+                android:layout_below="@+id/relativeLayout2"
+                android:text="@string/search"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textSize="10sp"/>
+
+    </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewMedicine"
+            android:layout_width="match_parent"
+            android:layout_height="355dp"
+            android:layout_alignParentStart="true"
+            android:choiceMode="multipleChoice"
+            android:textStyle="bold|italic"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/buttonOut"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                android:text="@string/add_medicine"
+                android:background="@drawable/selector_xml_btn_yellow"
+                android:textSize="10sp"
+                android:textStyle="bold|italic"/>
+
+            <Button
+                android:id="@+id/buttonOut"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:text="@string/out_all"
+                android:background="@drawable/selector_xml_btn_yellow"
+                android:textSize="10sp"
+                android:textStyle="bold|italic"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

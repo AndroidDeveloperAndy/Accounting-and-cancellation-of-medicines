@@ -1,6 +1,5 @@
 package com.example.andy.accountingandcancellationofmedicines.views.implementation;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -30,6 +29,7 @@ import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 import com.example.andy.accountingandcancellationofmedicines.settings.Preferences;
+import com.example.andy.accountingandcancellationofmedicines.utils.DialogFactory;
 import com.example.andy.accountingandcancellationofmedicines.views.interfaces.ClientActivityImpl;
 
 import org.androidannotations.annotations.AfterViews;
@@ -39,7 +39,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-@EActivity(R.layout.activity_client)
+@EActivity(R.layout.client_page)
 public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ClientActivityImpl {
 
     @ViewById(R.id.client_district)     Spinner mDistrictClient;
@@ -76,14 +76,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             ArrayList<MedicineEntity> mMedicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(mTxFindText.getText().toString());
             if(mMedicineEntityArrayList.size() == 0)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ClientActivity.this);
-                builder.setTitle("Repeat the find.")
-                        .setMessage("Nothing was found.")
-                        .setIcon(R.drawable.notfound)
-                        .setNegativeButton("Cancel", (dialog, id) -> dialog.cancel())
-                        .setCancelable(true);
-                AlertDialog alert = builder.create();
-                alert.show();
+                DialogFactory.dialogSearch(this);
             }
             MedicineAdapter mAdapterList = new MedicineAdapter(ClientActivity.this, mMedicineEntityArrayList);
             mListMedicine.setAdapter(mAdapterList);
@@ -94,6 +87,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             mTxFindText.requestFocus();
         }
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -138,6 +132,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -149,7 +144,6 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         ed.putString(SAVED_TEXT, mListMedicine.getCheckedItemPositions().toString());
         ed.apply();
         Toast.makeText(this, "The medicine is placed in the cart.", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "In the cart.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -188,5 +182,9 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showError(){
+        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
     }
 }

@@ -20,6 +20,7 @@ import com.example.andy.accountingandcancellationofmedicines.entity.LotEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.MeasureEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.ShopEntity;
+import com.example.andy.accountingandcancellationofmedicines.utils.DialogFactory;
 import com.example.andy.accountingandcancellationofmedicines.views.interfaces.AddMedicineImpl;
 
 import org.androidannotations.annotations.AfterViews;
@@ -70,6 +71,7 @@ public class AddMedicineActivity extends AppCompatActivity implements AddMedicin
             mMedicineEntity = new MedicineEntity();
             setTextForUpdate();
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -96,42 +98,40 @@ public class AddMedicineActivity extends AppCompatActivity implements AddMedicin
         try {
             List<LotEntity> lotEntityList = new LotDaoImpl().queryLot();
             for(LotEntity o: lotEntityList)
-            mStringListLot.add(String.valueOf(o.getlNumber()));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mStringListLot.toArray(new String[mStringListLot.size()]));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mLotNumberSpinner.setAdapter(adapter);
-        List<ShopEntity> shopEntityArrayList = new ShopDaoImpl().queryAllShop();
-        mMeasureEntityList = new MeasureDaoImpl().queryMeasureName();
-        for(MeasureEntity o: mMeasureEntityList)
-            mStringList.add(o.getName());
-        ArrayAdapter<String> adapterMeasure = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mStringList.toArray(new String[mStringList.size()]));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mMeasureSpinner.setAdapter(adapterMeasure);
-        ShopAdapter adapterListView = new ShopAdapter(this, shopEntityArrayList);
-        mListView.setAdapter(adapterListView);
-        mAddButton.setOnClickListener(view -> addMedicine());
+                mStringListLot.add(String.valueOf(o.getlNumber()));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mStringListLot.toArray(new String[mStringListLot.size()]));
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mLotNumberSpinner.setAdapter(adapter);
+            List<ShopEntity> shopEntityArrayList = new ShopDaoImpl().queryAllShop();
+            mMeasureEntityList = new MeasureDaoImpl().queryMeasureName();
+            for(MeasureEntity o: mMeasureEntityList)
+                mStringList.add(o.getName());
+            ArrayAdapter<String> adapterMeasure = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mStringList.toArray(new String[mStringList.size()]));
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mMeasureSpinner.setAdapter(adapterMeasure);
+            ShopAdapter adapterListView = new ShopAdapter(this, shopEntityArrayList);
+            mListView.setAdapter(adapterListView);
+            mAddButton.setOnClickListener(view -> addMedicine());
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
 
     @Override
     public void addMedicine(){
-        if(checkInputField())
-            addToBase();
-        Toast.makeText(this,getResources().getString(R.string.toastAdd),Toast.LENGTH_LONG);
-        AddMedicineActivity.this.startActivity(new Intent(AddMedicineActivity.this, StartPageActivity.class));
-    }
-
-    @Override
-    public void addToBase() {
         try {
-            setDataFromDatabase();
-            new MedicineDaoImpl().addMedicine(mMedicineEntity);
+            if(checkInputField())
+                setDataFromDatabase();
+        new MedicineDaoImpl().addMedicine(mMedicineEntity);
+        Toast.makeText(this,getResources().getString(R.string.toastAdd),Toast.LENGTH_LONG);
+        AddMedicineActivity.this.startActivity(new Intent(AddMedicineActivity.this, AdminActivity.class));
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void setDataFromDatabase() {
@@ -154,5 +154,9 @@ public class AddMedicineActivity extends AppCompatActivity implements AddMedicin
                 mAmount.getText().toString().length() > 0 &&
                 mDateOfManufacture.getText().toString().length() > 0 &&
                 mShelfLife.getText().toString().length() > 0;
+    }
+
+    public void showError(){
+        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
     }
 }

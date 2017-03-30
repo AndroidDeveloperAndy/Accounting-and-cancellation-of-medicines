@@ -4,7 +4,5 @@
     <group android:checkableBehavior="single">
         <item android:title="Ибуклин">
         </item>
-        <item android:title="Анальгин">
-        </item>
     </group>
 </menu>

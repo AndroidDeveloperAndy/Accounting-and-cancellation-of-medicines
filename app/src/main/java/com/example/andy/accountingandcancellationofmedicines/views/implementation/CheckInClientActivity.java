@@ -9,13 +9,14 @@ import android.widget.Toast;
 import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.UsersDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.UsersEntity;
+import com.example.andy.accountingandcancellationofmedicines.utils.DialogFactory;
 import com.example.andy.accountingandcancellationofmedicines.views.interfaces.CheckInClientImpl;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-@EActivity(R.layout.activity_check_in_client)
+@EActivity(R.layout.registration)
 public class CheckInClientActivity extends AppCompatActivity implements CheckInClientImpl{
 
     @ViewById(R.id.check_in_button_form) Button mButtonAdd;
@@ -50,6 +51,7 @@ public class CheckInClientActivity extends AppCompatActivity implements CheckInC
             entity.setTypeUser("Client");
             new UsersDaoImpl().addUser(entity);
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -61,5 +63,9 @@ public class CheckInClientActivity extends AppCompatActivity implements CheckInC
                 mTxSurname.getText().toString().length() > 0 &&
                 mTxName.getText().toString().length() > 0 &&
                 mTxPatronymic.getText().toString().length() > 0;
+    }
+
+    public void showError(){
+        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
     }
 }

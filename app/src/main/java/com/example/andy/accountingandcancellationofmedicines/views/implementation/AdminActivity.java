@@ -1,7 +1,7 @@
 package com.example.andy.accountingandcancellationofmedicines.views.implementation;
 
-import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.adapter.MedicineAdapter;
@@ -19,20 +18,22 @@ import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.Medicine
 import com.example.andy.accountingandcancellationofmedicines.entity.CityEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.CountryEntity;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
+import com.example.andy.accountingandcancellationofmedicines.utils.DialogFactory;
 import com.example.andy.accountingandcancellationofmedicines.views.interfaces.StartPageImpl;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EActivity(R.layout.activity_start_page)
-public class StartPageActivity extends AppCompatActivity implements View.OnClickListener,StartPageImpl {
+@EActivity(R.layout.admin_page)
+public class AdminActivity extends AppCompatActivity implements View.OnClickListener,StartPageImpl {
 
-    @ViewById(R.id.spinnerDistrict)         Spinner mDistrict;
-    @ViewById(R.id.spinnerCountry)          Spinner mCountry;
+    @ViewById(R.id.spinnerDistrict)         NiceSpinner mDistrict;
+    @ViewById(R.id.spinnerCountry)          NiceSpinner mCountry;
     @ViewById(R.id.editTextSearchMedicine)  EditText mSearchMedicine;
     @ViewById(R.id.listViewMedicine)        ListView mListMedicine;
     @ViewById(R.id.buttonAdd)               Button mBtnAdd;
@@ -58,16 +59,9 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             ArrayList<MedicineEntity> medicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(mSearchMedicine.getText().toString());
             if(medicineEntityArrayList.size() == 0)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(StartPageActivity.this);
-                builder.setTitle("Repeat the find.")
-                        .setMessage("Nothing was found.")
-                        .setIcon(R.drawable.notfound)
-                        .setNegativeButton("Cancel", (dialog, id) -> dialog.cancel())
-                        .setCancelable(true);
-                AlertDialog alert = builder.create();
-                alert.show();
+                DialogFactory.dialogSearch(this);
             }
-            MedicineAdapter adapterList = new MedicineAdapter(StartPageActivity.this, medicineEntityArrayList);
+            MedicineAdapter adapterList = new MedicineAdapter(AdminActivity.this, medicineEntityArrayList);
             mListMedicine.setAdapter(adapterList);
             adapterList.notifyDataSetChanged();
         }
@@ -76,6 +70,7 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             mSearchMedicine.requestFocus();
         }
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -83,7 +78,10 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void setSpinner(){
         try {
-        mDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            mDistrict.setTextColor(Color.BLACK);
+            mCountry.setTextColor(Color.BLACK);
+
+            mDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {}
@@ -94,11 +92,8 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
         mEntityListCountry = new CountryDaoImpl().queryCountryName();
         for (CountryEntity o: mEntityListCountry)
                 listCountry.add(o.getName());
-        ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
-        adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCountry.setAdapter(adapterCountry);
-        mCountry.setSelection(0);
-        mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mCountry.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, listCountry));
+            mCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
@@ -107,11 +102,9 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
                     mEntityList = new CityDaoImpl().queryCitys(mEntityListCountry.get(position).getIdCountry());
                     for (CityEntity o : mEntityList)
                         listCity.add(o.getName());
-                    ArrayAdapter<String> adapterCity = new ArrayAdapter<>(StartPageActivity.this, android.R.layout.simple_spinner_item, listCity);
-                    adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mDistrict.setAdapter(adapterCity);
-                    mDistrict.setSelection(0);
+                    mDistrict.setAdapter(new ArrayAdapter<>(AdminActivity.this, android.R.layout.simple_spinner_item, listCity));
                 } catch (Throwable e) {
+                    showError();
                     e.printStackTrace();
                 }
             }
@@ -119,6 +112,7 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -134,14 +128,18 @@ public class StartPageActivity extends AppCompatActivity implements View.OnClick
 
         switch(view.getId()) {
             case R.id.buttonAdd:
-                intent = new Intent(this, AddMedicineActivity.class);
+                intent = new Intent(this, AddMedicineActivity_.class);
                 startActivity(intent);
                 break;
             case R.id.buttonOut:
-                intent = new Intent(this,OutAllMedicineActivity.class);
+                intent = new Intent(this,ListMedicineActivity_.class);
                 startActivity(intent);
                 break;
         }
+    }
+
+    public void showError(){
+        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
     }
 }
 

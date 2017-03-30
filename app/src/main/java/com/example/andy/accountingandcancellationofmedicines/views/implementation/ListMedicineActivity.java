@@ -14,6 +14,7 @@ import com.example.andy.accountingandcancellationofmedicines.R;
 import com.example.andy.accountingandcancellationofmedicines.adapter.WrapperMedicineAdapter;
 import com.example.andy.accountingandcancellationofmedicines.dao.sqlite.MedicineDaoImpl;
 import com.example.andy.accountingandcancellationofmedicines.entity.MedicineEntity;
+import com.example.andy.accountingandcancellationofmedicines.utils.DialogFactory;
 import com.example.andy.accountingandcancellationofmedicines.views.interfaces.OutAllMedicineImpl;
 
 import org.androidannotations.annotations.AfterViews;
@@ -22,13 +23,9 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 @EActivity(R.layout.activity_out_all_medicine)
-public class OutAllMedicineActivity extends AppCompatActivity implements OutAllMedicineImpl{
+public class ListMedicineActivity extends AppCompatActivity implements OutAllMedicineImpl{
 
     private MedicineAdapter mAdapter;
     private List<WrapperMedicineAdapter> mWrapperMedicineAdapters = new ArrayList<>();
@@ -43,10 +40,13 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
     }
 
     @Override
-    public void deleteItem(){
+    public void deleteItem() {
         try {
-            mWrapperMedicineAdapters.stream().filter(WrapperMedicineAdapter::isChecked).forEach(o ->
-            new MedicineDaoImpl().deleteMedicine(o.getEntity().getId()));
+            for (WrapperMedicineAdapter o : mWrapperMedicineAdapters) {
+                if (o.isChecked()) {
+                    new MedicineDaoImpl().deleteMedicine(o.getEntity().getId());
+                }
+            }
             updateUI();
         }catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +58,9 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
         try {
             List<MedicineEntity> entities = new MedicineDaoImpl().queryAllMedicine();
             mWrapperMedicineAdapters.clear();
-            mWrapperMedicineAdapters.addAll(entities.stream().map(WrapperMedicineAdapter::new).collect(Collectors.toList()));
+            for (MedicineEntity o: entities){
+                mWrapperMedicineAdapters.add(new WrapperMedicineAdapter(o));
+            }
             if (mAdapter == null) {
                 mAdapter = new MedicineAdapter(mWrapperMedicineAdapters);
                 mTaskRecyclerView.setAdapter(mAdapter);
@@ -67,6 +69,7 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
                 mAdapter.notifyDataSetChanged();
             }
         } catch (Exception e) {
+            showError();
             e.printStackTrace();
         }
     }
@@ -77,20 +80,27 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
         updateUI();
     }
 
+    public void showError(){
+        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
+    }
+
     class MedicineHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.cbMedicine) CheckBox cbMedicine;
-        @BindView(R.id.txNameMedicine) TextView nameMedicine;
-        @BindView(R.id.txAmount) TextView txAmount;
-        @BindView(R.id.txShelfLife) TextView txShelfLife;
+        private CheckBox cbMedicine;
+        private TextView nameMedicine;
+        private TextView txAmount;
+        private TextView txShelfLife;
 
         private WrapperMedicineAdapter data;
 
         MedicineHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            cbMedicine = (CheckBox) itemView.findViewById(R.id.cbMedicine);
+            nameMedicine = (TextView) itemView.findViewById(R.id.txNameMedicine);
+            txAmount = (TextView) itemView.findViewById(R.id.txAmount);
+            txShelfLife = (TextView) itemView.findViewById(R.id.txShelfLife);
             cbMedicine.setOnCheckedChangeListener((buttonView, isChecked) -> data.setChecked(isChecked));
-            nameMedicine.setOnClickListener(view -> startActivity(AddMedicineActivity.newInstanceUpdate(OutAllMedicineActivity.this, data.getEntity())));
+            nameMedicine.setOnClickListener(view -> startActivity(AddMedicineActivity.newInstanceUpdate(ListMedicineActivity.this, data.getEntity())));
         }
 
         void bindWrapperMedicine(WrapperMedicineAdapter entity) {
@@ -102,7 +112,7 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
         }
     }
 
-    private class MedicineAdapter extends RecyclerView.Adapter<OutAllMedicineActivity.MedicineHolder> {
+    private class MedicineAdapter extends RecyclerView.Adapter<ListMedicineActivity.MedicineHolder> {
 
         private List<WrapperMedicineAdapter> wrapperMedicineAdapters;
 
@@ -111,12 +121,12 @@ public class OutAllMedicineActivity extends AppCompatActivity implements OutAllM
         }
 
         @Override
-        public OutAllMedicineActivity.MedicineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new OutAllMedicineActivity.MedicineHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.medicine_item_list, parent, false));
+        public ListMedicineActivity.MedicineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new ListMedicineActivity.MedicineHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.medicine_item_list, parent, false));
         }
 
         @Override
-        public void onBindViewHolder(OutAllMedicineActivity.MedicineHolder holder, int position) {
+        public void onBindViewHolder(ListMedicineActivity.MedicineHolder holder, int position) {
             holder.bindWrapperMedicine(wrapperMedicineAdapters.get(position));
         }
 

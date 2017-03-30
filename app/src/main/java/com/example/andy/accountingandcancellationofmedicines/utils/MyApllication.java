@@ -19,7 +19,7 @@ public class MyApllication extends Application{
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mLang = mPreferences.getString("lang", "default");
         if (mLang.equals("default")) {
-            mLang =getResources().getConfiguration().locale.getCountry();}
+            mLang = getResources().getConfiguration().locale.getCountry();}
         mLocale = new Locale(mLang);
         Locale.setDefault(mLocale);
         Configuration config = new Configuration();
