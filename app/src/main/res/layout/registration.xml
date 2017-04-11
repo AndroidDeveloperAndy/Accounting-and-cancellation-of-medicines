@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@mipmap/back_login"
+    android:orientation="vertical"
     android:padding="40dp"
     android:weightSum="1">
 
@@ -20,10 +20,10 @@
                 android:id="@+id/form_registration"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.2"
                 android:text="@string/form_registration"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textStyle="bold|italic" />
 
             <EditText
@@ -37,8 +37,8 @@
                 android:hint="Username"
                 android:inputType="textPersonName"
                 android:paddingLeft="0dp"
-                android:textColor="#FFF"
-                android:textColorHint="@color/white" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/password_client"
@@ -51,8 +51,8 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
                 android:paddingLeft="0dp"
-                android:textColor="#FFF"
-                android:textColorHint="@color/white" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/surname_client"
@@ -64,8 +64,8 @@
                 android:ems="10"
                 android:hint="@string/surname"
                 android:paddingLeft="0dp"
-                android:textColor="#FFF"
-                android:textColorHint="@color/white" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/name_client"
@@ -78,8 +78,8 @@
                 android:ems="10"
                 android:hint="@string/your_name"
                 android:paddingLeft="0dp"
-                android:textColor="#FFF"
-                android:textColorHint="@color/white" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
             <EditText
                 android:id="@+id/patronymic_client"
@@ -92,12 +92,12 @@
                 android:ems="10"
                 android:hint="@string/patronymic"
                 android:paddingLeft="0dp"
-                android:textColor="#FFF"
-                android:textColorHint="@color/white" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
             <Button
                 android:id="@+id/check_in_button_form"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"

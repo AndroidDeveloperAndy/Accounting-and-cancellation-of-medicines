@@ -33,12 +33,15 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityImp
 
     private UserLoginTask mAuthTask = null;
 
-    @ViewById(R.id.username) EditText txLogin;
-    @ViewById(R.id.password) EditText txPassword;
-    @ViewById(R.id.forgot)   TextView txForgotPass;
+    @ViewById(R.id.username)
+    EditText txLogin;
+    @ViewById(R.id.password)
+    EditText txPassword;
+    @ViewById(R.id.forgot)
+    TextView txForgotPass;
 
     @AfterViews
-    public void initLA(){
+    public void initLA() {
         Singleton.getInstance(this);
         txForgotPass.setOnClickListener(v -> DialogFactory.restoreAccountDialog(LoginActivity.this).show());
         new DatabaseHelper(this).getWritableDatabase();
@@ -54,15 +57,14 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityImp
         if (!isValidPassword(pass)) {
             txPassword.setError(getString(R.string.error_incorrect_password));
         }
-        if(isValidLogin(email) && isValidPassword(pass))
-        {
+        if (isValidLogin(email) && isValidPassword(pass)) {
             mAuthTask = new UserLoginTask(email, pass);
             mAuthTask.execute((Void) null);
         }
     }
 
     @Override
-    public void addClientPage(View view){
+    public void addClientPage(View view) {
         startActivity(new Intent(LoginActivity.this, CheckInClientActivity_.class));
     }
 
@@ -81,18 +83,21 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityImp
         protected Integer doInBackground(Void... params) {
             try {
                 Thread.sleep(2000);
-            int resultCode = 0;
-            UsersEntity entity = mUserDao.read(mLogin);
-            if(entity != null && entity.getLogin().equals(mLogin) && entity.getPassword().equals(mPassword)){
-            switch (entity.getTypeUser())
-            {
-                case "Sotrud": {resultCode = CODE_ADMIN_SUCCESFUL;}
-                break;
-                case "Client": {resultCode = CODE_CLIENT_SUCCESFUL;}
-                break;
+                int resultCode = 0;
+                UsersEntity entity = mUserDao.read(mLogin);
+                if (entity != null && entity.getLogin().equals(mLogin) && entity.getPassword().equals(mPassword)) {
+                    switch (entity.getTypeUser()) {
+                        case "Sotrud": {
+                            resultCode = CODE_ADMIN_SUCCESFUL;
+                        }
+                        break;
+                        case "Client": {
+                            resultCode = CODE_CLIENT_SUCCESFUL;
+                        }
+                        break;
+                    }
                 }
-            }
-            return resultCode;
+                return resultCode;
             } catch (InterruptedException e) {
                 return -CODE_SING_UP_EXEPTION;
             }
@@ -102,14 +107,15 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityImp
         protected void onPostExecute(final Integer success) {
             mAuthTask = null;
             switch (success) {
-                case CODE_ADMIN_SUCCESFUL:{
+                case CODE_ADMIN_SUCCESFUL: {
                     startActivity(new Intent(LoginActivity.this, AdminActivity_.class));
                     break;
                 }
-                case CODE_CLIENT_SUCCESFUL:{
+                case CODE_CLIENT_SUCCESFUL: {
                     startActivity(new Intent(LoginActivity.this, ClientActivity_.class));
                     break;
-                } default:{
+                }
+                default: {
                 }
             }
         }
@@ -129,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements LoginActivityImp
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_settings){
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, Preferences.class));
         }
         return super.onOptionsItemSelected(item);

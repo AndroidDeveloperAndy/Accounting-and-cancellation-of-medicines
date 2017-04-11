@@ -17,17 +17,23 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.registration)
-public class CheckInClientActivity extends AppCompatActivity implements CheckInClientImpl{
+public class CheckInClientActivity extends AppCompatActivity implements CheckInClientImpl {
 
-    @ViewById(R.id.check_in_button_form) Button mButtonAdd;
-    @ViewById(R.id.login_checkIN) EditText mTxLogin;
-    @ViewById(R.id.password_client) EditText mTxPass;
-    @ViewById(R.id.surname_client) EditText mTxSurname;
-    @ViewById(R.id.name_client) EditText mTxName;
-    @ViewById(R.id.patronymic_client) EditText mTxPatronymic;
+    @ViewById(R.id.check_in_button_form)
+    Button mButtonAdd;
+    @ViewById(R.id.login_checkIN)
+    EditText mTxLogin;
+    @ViewById(R.id.password_client)
+    EditText mTxPass;
+    @ViewById(R.id.surname_client)
+    EditText mTxSurname;
+    @ViewById(R.id.name_client)
+    EditText mTxName;
+    @ViewById(R.id.patronymic_client)
+    EditText mTxPatronymic;
 
     @AfterViews
-    void initCIC(){
+    void initCIC() {
         mButtonAdd.setOnClickListener(view -> addUser());
     }
 
@@ -65,7 +71,7 @@ public class CheckInClientActivity extends AppCompatActivity implements CheckInC
                 mTxPatronymic.getText().toString().length() > 0;
     }
 
-    public void showError(){
-        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
+    public void showError() {
+        DialogFactory.createGenericErrorDialog(this, "Sorry,an error occurred.").show();
     }
 }

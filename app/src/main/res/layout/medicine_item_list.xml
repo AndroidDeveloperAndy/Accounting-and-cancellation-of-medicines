@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cv"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.14"
             android:layout_marginLeft="50dp"
+            android:layout_weight="0.14"
             android:orientation="horizontal">
 
             <TextView
@@ -66,8 +65,8 @@
                 android:id="@+id/txNameMedicine"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/colorPrimaryDark"
                 android:layout_marginRight="50dp"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp" />
 
             <TextView

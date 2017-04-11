@@ -25,16 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_out_all_medicine)
-public class ListMedicineActivity extends AppCompatActivity implements OutAllMedicineImpl{
+public class ListMedicineActivity extends AppCompatActivity implements OutAllMedicineImpl {
 
     private MedicineAdapter mAdapter;
     private List<WrapperMedicineAdapter> mWrapperMedicineAdapters = new ArrayList<>();
 
-    @ViewById(R.id.listAllMedicine) RecyclerView mTaskRecyclerView;
-    @ViewById(R.id.DeleteButton) Button mDeleteMedicine;
+    @ViewById(R.id.listAllMedicine)
+    RecyclerView mTaskRecyclerView;
+    @ViewById(R.id.DeleteButton)
+    Button mDeleteMedicine;
 
     @AfterViews
-    public void initOAMA() {
+    public void initLMA() {
         mTaskRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mDeleteMedicine.setOnClickListener(v -> deleteItem());
     }
@@ -48,7 +50,7 @@ public class ListMedicineActivity extends AppCompatActivity implements OutAllMed
                 }
             }
             updateUI();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -58,7 +60,7 @@ public class ListMedicineActivity extends AppCompatActivity implements OutAllMed
         try {
             List<MedicineEntity> entities = new MedicineDaoImpl().queryAllMedicine();
             mWrapperMedicineAdapters.clear();
-            for (MedicineEntity o: entities){
+            for (MedicineEntity o : entities) {
                 mWrapperMedicineAdapters.add(new WrapperMedicineAdapter(o));
             }
             if (mAdapter == null) {
@@ -80,11 +82,11 @@ public class ListMedicineActivity extends AppCompatActivity implements OutAllMed
         updateUI();
     }
 
-    public void showError(){
-        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
+    public void showError() {
+        DialogFactory.createGenericErrorDialog(this, "Sorry,an error occurred.").show();
     }
 
-    class MedicineHolder extends RecyclerView.ViewHolder{
+    class MedicineHolder extends RecyclerView.ViewHolder {
 
         private CheckBox cbMedicine;
         private TextView nameMedicine;
@@ -106,7 +108,7 @@ public class ListMedicineActivity extends AppCompatActivity implements OutAllMed
         void bindWrapperMedicine(WrapperMedicineAdapter entity) {
             data = entity;
             nameMedicine.setText(data.getEntity().getNameMedicine());
-            txAmount.setText( String.valueOf( data.getEntity().getAmount() ) );
+            txAmount.setText(String.valueOf(data.getEntity().getAmount()));
             txShelfLife.setText(data.getEntity().getShelfLife());
             cbMedicine.setChecked(data.isChecked());
         }

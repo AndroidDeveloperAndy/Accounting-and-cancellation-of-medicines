@@ -2,6 +2,7 @@ package com.example.andy.accountingandcancellationofmedicines.views.implementati
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.andy.accountingandcancellationofmedicines.R;
@@ -35,22 +35,32 @@ import com.example.andy.accountingandcancellationofmedicines.views.interfaces.Cl
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.angmarch.views.NiceSpinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.client_page)
-public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ClientActivityImpl {
+public class ClientActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ClientActivityImpl {
 
-    @ViewById(R.id.client_district)     Spinner mDistrictClient;
-    @ViewById(R.id.client_city)         Spinner mCountryClient;
-    @ViewById(R.id.OrderButton)         Button mOrder;
-    @ViewById(R.id.SearchButton)        Button mSearch;
-    @ViewById(R.id.find_client_medicine)EditText mTxFindText;
-    @ViewById(R.id.listMedicineClient)  ListView mListMedicine;
-    @ViewById(R.id.drawer_layout)       DrawerLayout mDrawer;
-    @ViewById(R.id.toolbar)             Toolbar mToolbar;
-    @ViewById(R.id.nav_view)            NavigationView mNavigationView;
+    @ViewById(R.id.client_district)
+    NiceSpinner mDistrictClient;
+    @ViewById(R.id.client_city)
+    NiceSpinner mCountryClient;
+    @ViewById(R.id.OrderButton)
+    Button mOrder;
+    @ViewById(R.id.SearchButton)
+    Button mSearch;
+    @ViewById(R.id.find_client_medicine)
+    EditText mTxFindText;
+    @ViewById(R.id.listMedicineClient)
+    ListView mListMedicine;
+    @ViewById(R.id.drawer_layout)
+    DrawerLayout mDrawer;
+    @ViewById(R.id.toolbar)
+    Toolbar mToolbar;
+    @ViewById(R.id.nav_view)
+    NavigationView mNavigationView;
 
     private List<CityEntity> mEntityListCityClient;
     private List<CountryEntity> mEntityListCountry;
@@ -69,23 +79,20 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     }
 
     @Override
-    public void findAtListMedicine(){
+    public void findAtListMedicine() {
         try {
-        if(checkInputField())
-        {
-            ArrayList<MedicineEntity> mMedicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(mTxFindText.getText().toString());
-            if(mMedicineEntityArrayList.size() == 0)
-            {
-                DialogFactory.dialogSearch(this);
+            if (checkInputField()) {
+                ArrayList<MedicineEntity> mMedicineEntityArrayList = new MedicineDaoImpl().findByNameMedicine(mTxFindText.getText().toString());
+                if (mMedicineEntityArrayList.size() == 0) {
+                    DialogFactory.dialogSearch(this);
+                }
+                MedicineAdapter mAdapterList = new MedicineAdapter(ClientActivity.this, mMedicineEntityArrayList);
+                mListMedicine.setAdapter(mAdapterList);
+                mAdapterList.notifyDataSetChanged();
+            } else {
+                mTxFindText.setError(getString(R.string.error_field_required));
+                mTxFindText.requestFocus();
             }
-            MedicineAdapter mAdapterList = new MedicineAdapter(ClientActivity.this, mMedicineEntityArrayList);
-            mListMedicine.setAdapter(mAdapterList);
-            mAdapterList.notifyDataSetChanged();
-        }
-        else {
-            mTxFindText.setError(getString(R.string.error_field_required));
-            mTxFindText.requestFocus();
-        }
         } catch (Exception e) {
             showError();
             e.printStackTrace();
@@ -93,44 +100,48 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     }
 
     @Override
-    public void createDataForSpinner(){
+    public void createDataForSpinner() {
         try {
-        mDistrictClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {}
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
-        final List<String> listCountry = new ArrayList<>();
-            mEntityListCountry = new CountryDaoImpl().queryCountryName();
-            for (CountryEntity o: mEntityListCountry)
-                listCountry.add(o.getName());
-        ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
-        adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mCountryClient.setAdapter(adapterCountry);
-        mCountryClient.setPrompt("Страна");
-        mCountryClient.setSelection(1);
-        mCountryClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                try {
-                    List<String> listCity = new ArrayList<>();
-                    mEntityListCityClient = new CityDaoImpl().queryCitys(mEntityListCountry.get(position).getIdCountry());
-                    for (CityEntity o : mEntityListCityClient)
-                        listCity.add(o.getName());
-                    ArrayAdapter<String> adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
-                    adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mDistrictClient.setAdapter(adapterCity);
-                    mDistrictClient.setSelection(1);
-                } catch (Throwable e) {
-                    e.printStackTrace();
+            mDistrictClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view,
+                                           int position, long id) {
                 }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
-        });
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+            final List<String> listCountry = new ArrayList<>();
+            mEntityListCountry = new CountryDaoImpl().queryCountryName();
+            for (CountryEntity o : mEntityListCountry)
+                listCountry.add(o.getName());
+            ArrayAdapter<String> adapterCountry = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listCountry);
+            adapterCountry.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mCountryClient.setAdapter(adapterCountry);
+            mCountryClient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                    try {
+                        List<String> listCity = new ArrayList<>();
+                        mEntityListCityClient = new CityDaoImpl().queryCitys(mEntityListCountry.get(position).getIdCountry());
+                        for (CityEntity o : mEntityListCityClient)
+                            listCity.add(o.getName());
+                        ArrayAdapter<String> adapterCity = new ArrayAdapter<>(ClientActivity.this, android.R.layout.simple_spinner_item, listCity);
+                        adapterCity.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mDistrictClient.setAdapter(adapterCity);
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                }
+            });
+            mDistrictClient.setTextColor(Color.BLACK);
+            mCountryClient.setTextColor(Color.BLACK);
         } catch (Exception e) {
             showError();
             e.printStackTrace();
@@ -170,7 +181,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_settings){
+        if (id == R.id.action_settings) {
             startActivity(new Intent(this, Preferences.class));
         }
         return super.onOptionsItemSelected(item);
@@ -184,7 +195,7 @@ public class ClientActivity extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-    public void showError(){
-        DialogFactory.createGenericErrorDialog(this,"Sorry,an error occurred.").show();
+    public void showError() {
+        DialogFactory.createGenericErrorDialog(this, "Sorry,an error occurred.").show();
     }
 }

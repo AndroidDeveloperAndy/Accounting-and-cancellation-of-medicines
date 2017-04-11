@@ -17,20 +17,20 @@
         android:id="@+id/imageView"
         android:layout_width="113dp"
         android:layout_height="80dp"
+        android:layout_gravity="left"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/basket"
-        android:layout_gravity="left" />
+        app:srcCompat="@mipmap/basket" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="171dp"
         android:layout_height="wrap_content"
+        android:fontFamily="casual"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/basket"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:id="@+id/textView6"
-        android:textSize="24sp"
-        android:fontFamily="casual"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
         android:typeface="serif" />
 
 </LinearLayout>

@@ -9,11 +9,11 @@ import org.androidannotations.annotations.EActivity;
 import static com.example.andy.accountingandcancellationofmedicines.utils.StringsUtil.LENGTH;
 
 @EActivity
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Handler().postDelayed(()->{
+        new Handler().postDelayed(() -> {
             LoginActivity_.intent(this).start();
             finish();
         }, LENGTH);
